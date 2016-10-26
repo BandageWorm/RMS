@@ -40,3 +40,6 @@ C:\Users\kurtg\Documents\GitHub\RMS\RMS\obj\Debug\MainWindow.baml
 C:\Users\kurtg\Documents\GitHub\RMS\RMS\obj\Debug\RMS.g.resources
 C:\Users\kurtg\Documents\GitHub\RMS\RMS\obj\Debug\RMS.Properties.Resources.resources
 C:\Users\kurtg\Documents\GitHub\RMS\RMS\obj\Debug\RMS.csproj.GenerateResource.Cache
+F:\VS Project\RMS\RMS\bin\Debug\RMS.exe.config
+F:\VS Project\RMS\RMS\obj\Debug\RMS.exe
+F:\VS Project\RMS\RMS\obj\Debug\RMS.pdb
