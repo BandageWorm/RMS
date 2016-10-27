@@ -29,7 +29,7 @@ namespace RMS
                 con.Open();
             } catch (MySqlException e)
             {
-                    MessageBox.Show("Fail to connect SQL server!\n\nError Code: " + e.Number);
+                    MessageBox.Show(e.Message);
                     this.Close();
             }
         }

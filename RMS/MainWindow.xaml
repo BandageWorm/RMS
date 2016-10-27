@@ -24,9 +24,11 @@
                 <DataGridTextColumn Width="200" Header="info" Binding="{Binding item_info}"/>
             </DataGrid.Columns>
         </DataGrid>
-        <RadioButton x:Name="rbtQC" GroupName="searchvia" Content="Quick Code" FontSize="15" HorizontalAlignment="Left" Margin="180,10" Grid.Row="1" VerticalAlignment="Top"/>
+        <RadioButton x:Name="rbtQC" IsChecked="True" GroupName="searchvia" Content="Quick Code" FontSize="15" HorizontalAlignment="Left" Margin="180,10" Grid.Row="1" VerticalAlignment="Top"/>
         <RadioButton x:Name="rbtID" GroupName="searchvia" Content="ID" FontSize="15" HorizontalAlignment="Left" Margin="120,10" Grid.Row="1" VerticalAlignment="Top"/>
         <TextBox x:Name="tbSearch" Height="20" Margin="20,10" Grid.Row="1" TextWrapping="Wrap" VerticalAlignment="Top" HorizontalAlignment="Left" Width="80"/>
         <Button x:Name="btSearch" Content="Search" Height="20" FontSize="15" HorizontalAlignment="Left" Margin="350,10,0,0" VerticalAlignment="Top" Width="70" Grid.Row="1" Click="search_Click"/>
+        <Button x:Name="btAddOrder" Content="Create Order" Grid.Column="1" HorizontalAlignment="Left" Margin="319.2,14.4,0,0" Grid.Row="1" VerticalAlignment="Top" Width="100" Click="btAddOrder_Click"/>
+        <TextBox x:Name="tbOrderTable" Text="Input table NO" Grid.Column="1" HorizontalAlignment="Left" Height="23" Margin="194.2,12.4,0,0" Grid.Row="1" TextWrapping="Wrap" VerticalAlignment="Top" Width="120"/>
     </Grid>
 </Window>
