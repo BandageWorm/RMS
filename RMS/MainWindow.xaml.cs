@@ -14,29 +14,49 @@ using System.Windows.Navigation;
 using System.Windows.Shapes;
 using MySql.Data;
 using MySql.Data.MySqlClient;
+using System.Data;
 
 namespace RMS
 {
     public partial class MainWindow : Window
     {
         static string account;
-        static string role;
+        static string rms = "Database='RMS';DataSource = 'localhost'; User Id = 'root'; Password = 'root'; charset = 'utf8'";
+        MySqlConnection con = new MySqlConnection(rms);
         public void getAccount(string e)
         {
             account = e;
         }
-        public void getRole(string e)
-        {
-            role = e;
-        }
         public MainWindow()
         {
             InitializeComponent();
+            con.Open();
         }
 
-        private void button_Click(object sender, RoutedEventArgs e)
+        private void search_Click(object sender, RoutedEventArgs e)
         {
-            MessageBox.Show(account+" "+role);
+                order_item.ItemsSource = searchitem(this.tbSearch.Text).DefaultView;
         }
+        public DataTable searchitem(string search)
+        {
+            DataTable dt = new DataTable();
+                string sql;
+                if (this.rbtQC.IsChecked == true)
+                { sql = "select * from menu_item where item_code='" + search+"'"; }
+                else
+                { sql = "select * from menu_item where item_ID=" + search; }
+            try
+            {
+                DataSet ds = new DataSet();
+                MySqlDataAdapter sda = new MySqlDataAdapter(sql,con);
+                sda.Fill(ds, "item_id");
+                dt = ds.Tables["item_id"];
+            }catch (MySqlException e)
+            {
+                MessageBox.Show(e.Message);
+            }
+            return dt;
+        }
+        
     }
 }

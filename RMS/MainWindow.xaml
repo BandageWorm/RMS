@@ -5,8 +5,28 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:RMS"
         mc:Ignorable="d"
-        Title="Restaurant Management System" Height="800" Width="1200" ResizeMode="CanMinimize" WindowStartupLocation="CenterScreen">
+        Title="Restaurant Management System" Height="600" Width="1000" ResizeMode="CanMinimize" WindowStartupLocation="CenterScreen">
     <Grid>
-        <Button x:Name="button" Content="nimabi" HorizontalAlignment="Left" Margin="448,298,0,0" VerticalAlignment="Top" Width="266" Click="button_Click" Height="141"/>
-        </Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="2*"/>
+            <RowDefinition/>
+        </Grid.RowDefinitions>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition/>
+            <ColumnDefinition/>
+        </Grid.ColumnDefinitions>
+        <DataGrid x:Name="order_item" Margin="20">
+            <DataGrid.Columns>
+                <DataGridTextColumn Width="100" Header="ID" Binding="{Binding item_id}"/>
+                <DataGridTextColumn Width="100" Header="Item" Binding="{Binding item_name}"/>
+                <DataGridTextColumn Width="100" Header="Ammount" Binding="{Binding item_ammount}"/>
+                <DataGridTextColumn Width="100" Header="Price" Binding="{Binding price}"/>
+                <DataGridTextColumn Width="200" Header="info" Binding="{Binding item_info}"/>
+            </DataGrid.Columns>
+        </DataGrid>
+        <RadioButton x:Name="rbtQC" GroupName="searchvia" Content="Quick Code" FontSize="15" HorizontalAlignment="Left" Margin="180,10" Grid.Row="1" VerticalAlignment="Top"/>
+        <RadioButton x:Name="rbtID" GroupName="searchvia" Content="ID" FontSize="15" HorizontalAlignment="Left" Margin="120,10" Grid.Row="1" VerticalAlignment="Top"/>
+        <TextBox x:Name="tbSearch" Height="20" Margin="20,10" Grid.Row="1" TextWrapping="Wrap" VerticalAlignment="Top" HorizontalAlignment="Left" Width="80"/>
+        <Button x:Name="btSearch" Content="Search" Height="20" FontSize="15" HorizontalAlignment="Left" Margin="350,10,0,0" VerticalAlignment="Top" Width="70" Grid.Row="1" Click="search_Click"/>
+    </Grid>
 </Window>

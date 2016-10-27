@@ -40,12 +40,11 @@ namespace RMS
             string password = System.Runtime.InteropServices.Marshal.PtrToStringBSTR(p);
             MySqlCommand cmd = new MySqlCommand();
             cmd.Connection = con;
-            cmd.CommandText = ("select role from staff where account='"+tbAccount.Text+"' and password='"+password+"'");
+            cmd.CommandText = ("select account from staff where account='"+tbAccount.Text+"' and password='"+password+"'");
             if (cmd.ExecuteScalar()!=null)
             {
                 MainWindow mWindow = new MainWindow();
-                mWindow.getRole((string)cmd.ExecuteScalar());
-                mWindow.getAccount(tbAccount.Text);
+                mWindow.getAccount((string)cmd.ExecuteScalar());
                 this.Close();
                 mWindow.ShowDialog();     
             }
