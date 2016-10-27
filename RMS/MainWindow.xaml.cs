@@ -29,7 +29,11 @@ namespace RMS
         public MainWindow()
         {
             InitializeComponent();
-            con.Open();
+            try
+            {
+                con.Open();
+            }
+            catch (MySqlException ex) { MessageBox.Show(ex.Message); }
         }
 
         private void search_Click(object sender, RoutedEventArgs e)
@@ -46,9 +50,9 @@ namespace RMS
             DataTable dt = new DataTable();
             string sql;
             if (this.rbtQC.IsChecked == true)
-            { sql = "select * from menu_item where item_code='" + search + "'"; }
+            { sql = "select * from menu_item a inner join menu_category b on a.category_id=b.category_id where item_code='" + search + "'"; }
             else 
-            { sql = "select * from menu_item where item_ID=" + search; }
+            { sql = "select * from menu_item a inner join menu_category b on a.category_id=b.category_id where item_id=" + search; }
             try
             {
                 DataSet ds = new DataSet();
@@ -72,7 +76,7 @@ namespace RMS
                     cmd.CommandText = "select order_no,order_time from `order` order by order_time desc";
                     uint on = (uint)cmd.ExecuteScalar();
                     orderNo = on.ToString();
-                    MessageBox.Show("Create order succeed!\n\nCurrent Order Number:"+orderNo);
+                    MessageBox.Show("Create order succeed!\n\nCurrent Order Number: "+orderNo.ToString().PadLeft(6,'0'));
                 }
                 else
                 { MessageBox.Show("Create order failed!"); }
