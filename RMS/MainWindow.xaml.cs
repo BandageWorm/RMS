@@ -67,7 +67,7 @@ namespace RMS
         }
 
         private void search_Change(object sender, DependencyPropertyChangedEventArgs e)
-        {//打算做成输入值立即搜索，不用按search，数据绑定待完成
+        {//打算做成输入值立即搜索，不用按search，数据绑定
             string search = this.tbSearch.Text;
             if (search != "")
             { search_item.ItemsSource = searchItem(search).DefaultView; }
