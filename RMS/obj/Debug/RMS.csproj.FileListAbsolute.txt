@@ -43,3 +43,18 @@ C:\Users\kurtg\Documents\GitHub\RMS\RMS\obj\Debug\RMS.Properties.Resources.resou
 C:\Users\kurtg\Documents\GitHub\RMS\RMS\obj\Debug\RMS.csproj.GenerateResource.Cache
 C:\Users\kurtg\Documents\GitHub\RMS\RMS\obj\Debug\RMS.exe
 C:\Users\kurtg\Documents\GitHub\RMS\RMS\obj\Debug\RMS.pdb
+F:\VS Project\RMS\RMS\bin\Debug\RMS.exe
+F:\VS Project\RMS\RMS\bin\Debug\RMS.pdb
+F:\VS Project\RMS\RMS\bin\Debug\MySql.Data.dll
+F:\VS Project\RMS\RMS\bin\Debug\MySql.Data.xml
+F:\VS Project\RMS\RMS\obj\Debug\RMS.csprojResolveAssemblyReference.cache
+F:\VS Project\RMS\RMS\obj\Debug\LoginWindow.g.cs
+F:\VS Project\RMS\RMS\obj\Debug\MainWindow.g.cs
+F:\VS Project\RMS\RMS\obj\Debug\App.g.cs
+F:\VS Project\RMS\RMS\obj\Debug\RMS_MarkupCompile.cache
+F:\VS Project\RMS\RMS\obj\Debug\RMS_MarkupCompile.lref
+F:\VS Project\RMS\RMS\obj\Debug\LoginWindow.baml
+F:\VS Project\RMS\RMS\obj\Debug\MainWindow.baml
+F:\VS Project\RMS\RMS\obj\Debug\RMS.g.resources
+F:\VS Project\RMS\RMS\obj\Debug\RMS.Properties.Resources.resources
+F:\VS Project\RMS\RMS\obj\Debug\RMS.csproj.GenerateResource.Cache

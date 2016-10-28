@@ -94,6 +94,7 @@ namespace RMS
             { MessageBox.Show(ex.Message); }
         }
 
+        //function for "create order" button
         private void btCreateOrder_Click(object sender, RoutedEventArgs e)
         {
             string table = this.tbOrderTable.Text;
@@ -118,6 +119,7 @@ namespace RMS
             { MessageBox.Show(ex.Message); }
             return dt;
         }
+
 
         public void orderItem(string item, string ammount)
         {
