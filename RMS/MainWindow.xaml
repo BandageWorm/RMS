@@ -21,7 +21,7 @@
                 <DataGridTextColumn Width="60" Header="ID" Binding="{Binding item_id}"/>
                 <DataGridTextColumn Width="100" Header="Item" Binding="{Binding item_name}"/>
                 <DataGridTextColumn Width="100" Header="Price" Binding="{Binding price}"/>
-                <DataGridTextColumn Width="100" Header="category" Binding="{Binding category}"/>
+                <DataGridTextColumn Width="100" Header="Category" Binding="{Binding category}"/>
                 <DataGridTextColumn Width="300" Header="Info" Binding="{Binding item_info}"/>
             </DataGrid.Columns>
         </DataGrid>
@@ -33,12 +33,12 @@
                 <DataGridTextColumn Width="300" Header="Info" Binding="{Binding item_info}"/>
             </DataGrid.Columns>
         </DataGrid>
-        <RadioButton x:Name="rbtQC" IsChecked="True" GroupName="searchvia" Content="Quick Code" FontSize="15" HorizontalAlignment="Left" Margin="197,10,0,0" Grid.Row="2" VerticalAlignment="Top"/>
-        <RadioButton x:Name="rbtID" GroupName="searchvia" Content="ID" FontSize="15" HorizontalAlignment="Left" Margin="154,10,0,0" Grid.Row="2" VerticalAlignment="Top"/>
-        <TextBox x:Name="tbSearch" Height="20" Margin="94,10,0,0" Grid.Row="2" TextWrapping="Wrap" VerticalAlignment="Top" HorizontalAlignment="Left" Width="50" DataContextChanged="search_Change"/>
+        <RadioButton x:Name="rbtQC" GroupName="searchvia" Content="Quick Code" FontSize="15" HorizontalAlignment="Left" Margin="197,10,0,0" Grid.Row="2" VerticalAlignment="Top"/>
+        <RadioButton x:Name="rbtID" IsChecked="True" GroupName="searchvia" Content="ID" FontSize="15" HorizontalAlignment="Left" Margin="154,10,0,0" Grid.Row="2" VerticalAlignment="Top"/>
+        <TextBox x:Name="tbSearch" Height="20" Margin="100,10,0,0" Grid.Row="2" TextWrapping="Wrap" VerticalAlignment="Top" HorizontalAlignment="Left" Width="50" DataContextChanged="search_Change"/>
         <Button x:Name="btSearch" Content="Search" Height="20" FontSize="15" Margin="450,10,90,0" VerticalAlignment="Top" Grid.Row="2" Click="search_Click"/>
         <Button x:Name="btOrderItem" Content="Order" Height="20" FontSize="15" Margin="0,10,20,0" VerticalAlignment="Top" Grid.Row="2" Click="order_Click" HorizontalAlignment="Right" Width="60"/>
-        <Button x:Name="btAddOrder" Content="Create Order" Grid.Column="1" HorizontalAlignment="Right" Margin="0,10,20,0" Grid.Row="2" VerticalAlignment="Top" Width="100" Click="btAddOrder_Click"/>
+        <Button x:Name="btCreateOrder" Content="Create Order" Grid.Column="1" HorizontalAlignment="Right" Margin="0,10,20,0" Grid.Row="2" VerticalAlignment="Top" Width="100" Click="btCreateOrder_Click"/>
         <TextBox x:Name="tbOrderTable" Text="Input table NO" Grid.Column="1" HorizontalAlignment="Left" Height="23" Margin="20,10,0,0" Grid.Row="2" TextWrapping="Wrap" VerticalAlignment="Top" Width="120"/>
         <!--下面的tbk需要设置为在order datagrid上显示当前的order_no-->
         <TextBlock x:Name="tbkOrder" HorizontalAlignment="Left" Margin="140,110,0,0" TextWrapping="Wrap" Text="*显示当前Order NO*" FontSize="15" VerticalAlignment="Top" Grid.RowSpan="2"/>

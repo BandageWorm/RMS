@@ -22,10 +22,11 @@ namespace RMS
     {
         static string account="W00001";
         static string rms = "Database='RMS';DataSource = 'localhost'; User Id = 'root'; Password = 'root'; charset = 'utf8'";
-        string orderNo="";
+        string currentOrderNo="";
         MySqlConnection con = new MySqlConnection(rms);
         public void getAccount(string e)
         { account = e; }
+
         public MainWindow()
         {
             InitializeComponent();
@@ -33,7 +34,27 @@ namespace RMS
             {
                 con.Open();
             }
-            catch (MySqlException ex) { MessageBox.Show(ex.Message); }
+            catch (MySqlException ex) { MessageBox.Show(ex.Message); this.Close(); }
+        }
+
+        public DataTable searchItem(string search)
+        {
+            DataTable dt = new DataTable();
+            string sql;
+            if (this.rbtQC.IsChecked == true)
+            { sql = "select * from menu_item a inner join menu_category b on a.category_id=b.category_id where item_code='" + search + "'"; }
+            else
+            { sql = "select * from menu_item a inner join menu_category b on a.category_id=b.category_id where item_id=" + search; }
+            try
+            {
+                DataSet ds = new DataSet();
+                MySqlDataAdapter sda = new MySqlDataAdapter(sql, con);
+                sda.Fill(ds, "search_item");
+                dt = ds.Tables["search_item"];
+            }
+            catch (MySqlException ex)
+            { MessageBox.Show(ex.Message); }
+            return dt;
         }
 
         private void search_Click(object sender, RoutedEventArgs e)
@@ -51,24 +72,6 @@ namespace RMS
             if (search != "")
             { search_item.ItemsSource = searchItem(search).DefaultView; }
         }
-        public DataTable searchItem(string search)
-        {
-            DataTable dt = new DataTable();
-            string sql;
-            if (this.rbtQC.IsChecked == true)
-            { sql = "select * from menu_item a inner join menu_category b on a.category_id=b.category_id where item_code='" + search + "'"; }
-            else 
-            { sql = "select * from menu_item a inner join menu_category b on a.category_id=b.category_id where item_id=" + search; }
-            try
-            {
-                DataSet ds = new DataSet();
-                MySqlDataAdapter sda = new MySqlDataAdapter(sql,con);
-                sda.Fill(ds, "search_item");
-                dt = ds.Tables["search_item"];
-            }catch (MySqlException ex)
-            { MessageBox.Show(ex.Message); }
-            return dt;
-        }
 
         public void createOrder(string table)
         {
@@ -81,9 +84,9 @@ namespace RMS
                 {
                     cmd.CommandText = "select order_no,order_time from `order` order by order_time desc";
                     uint on = (uint)cmd.ExecuteScalar();
-                    orderNo = on.ToString();
-                    MessageBox.Show("Create order succeed!\n\nCurrent Order Number: "+orderNo.ToString().PadLeft(6,'0'));
-                    //显示当前单号，待完成：this.tbkSearch.DataContext = orderNo.ToString().PadLeft(6, '0');
+                    currentOrderNo = on.ToString();
+                    MessageBox.Show("Create order succeed!\n\nCurrent Order Number: "+ currentOrderNo.ToString().PadLeft(6,'0'));
+                    //显示当前单号，待完成：this.tbkSearch.DataContext = currentOrderNo.ToString().PadLeft(6, '0');
                 }
                 else
                 { MessageBox.Show("Create order failed!"); }
@@ -91,7 +94,7 @@ namespace RMS
             { MessageBox.Show(ex.Message); }
         }
 
-        private void btAddOrder_Click(object sender, RoutedEventArgs e)
+        private void btCreateOrder_Click(object sender, RoutedEventArgs e)
         {
             string table = this.tbOrderTable.Text;
             if (table == "")
@@ -100,27 +103,10 @@ namespace RMS
             { createOrder(table); }
         }
 
-        public void orderItem(string item, string ammount)
-        {
-            try
-            {
-                MySqlCommand cmd = new MySqlCommand();
-                cmd.Connection = con;
-                if (this.rbtID.IsChecked == true)
-                { cmd.CommandText = "insert into `order_item` (quantity, category_id, item_id, order_no) values(" + ammount + ", (select category_id from menu_item where item_id = " + item + ")," + item + "," + orderNo + ")"; }
-                else
-                { cmd.CommandText = "insert into `order_item` (quantity, category_id, item_id, order_no) values(" + ammount + ", (select category_id from menu_item where item_code = '" + item + "'), (select item_id from menu_item where item_code = '" + item + "')," + orderNo + ")"; }
-                if (cmd.ExecuteNonQuery() != 1)
-                { MessageBox.Show("Order failed!"); }
-            }
-            catch (MySqlException ex)
-            { MessageBox.Show(ex.Message); }
-        }
-
         public DataTable showOrder()
         {
             DataTable dt = new DataTable();
-            string sql = "select * from order_item inner join menu_item on order_item.item_id=menu_item.item_id where order_no=" + orderNo;
+            string sql = "select * from order_item inner join menu_item on order_item.item_id=menu_item.item_id where order_no=" + currentOrderNo;
             try
             {
                 DataSet ds = new DataSet();
@@ -133,6 +119,23 @@ namespace RMS
             return dt;
         }
 
+        public void orderItem(string item, string ammount)
+        {
+            try
+            {
+                MySqlCommand cmd = new MySqlCommand();
+                cmd.Connection = con;
+                if (this.rbtID.IsChecked == true)
+                { cmd.CommandText = "insert into `order_item` (quantity, category_id, item_id, order_no) values(" + ammount + ", (select category_id from menu_item where item_id = " + item + ")," + item + "," + currentOrderNo + ")"; }
+                else
+                { cmd.CommandText = "insert into `order_item` (quantity, category_id, item_id, order_no) values(" + ammount + ", (select category_id from menu_item where item_code = '" + item + "'), (select item_id from menu_item where item_code = '" + item + "')," + currentOrderNo + ")"; }
+                if (cmd.ExecuteNonQuery() != 1)
+                { MessageBox.Show("Order failed!"); }
+            }
+            catch (MySqlException ex)
+            { MessageBox.Show(ex.Message); }
+        }
+
         private void order_Click(object sender, RoutedEventArgs e)
         {
             string item = this.tbSearch.Text;
@@ -143,8 +146,11 @@ namespace RMS
                 order_item.ItemsSource = showOrder().DefaultView; }
         }
 
-        //删除已点单操作，待完成
+        //删除已点单
 
-        
+        //修改密码
+
+        //日月年报告
+
     }
 }
