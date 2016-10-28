@@ -39,12 +39,18 @@ namespace RMS
         private void search_Click(object sender, RoutedEventArgs e)
         {
             string search = this.tbSearch.Text;
-            if (search == "" )
-            { MessageBox.Show("Please input value!");}
+            if (search == "")
+            { MessageBox.Show("Please input value!"); }
             else
             { search_item.ItemsSource = searchItem(search).DefaultView; }
         }
 
+        private void search_Change(object sender, DependencyPropertyChangedEventArgs e)
+        {//打算做成输入值立即搜索，不用按search，数据绑定待完成
+            string search = this.tbSearch.Text;
+            if (search != "")
+            { search_item.ItemsSource = searchItem(search).DefaultView; }
+        }
         public DataTable searchItem(string search)
         {
             DataTable dt = new DataTable();
@@ -77,6 +83,7 @@ namespace RMS
                     uint on = (uint)cmd.ExecuteScalar();
                     orderNo = on.ToString();
                     MessageBox.Show("Create order succeed!\n\nCurrent Order Number: "+orderNo.ToString().PadLeft(6,'0'));
+                    //显示当前单号，待完成：this.tbkSearch.DataContext = orderNo.ToString().PadLeft(6, '0');
                 }
                 else
                 { MessageBox.Show("Create order failed!"); }
@@ -110,20 +117,10 @@ namespace RMS
             { MessageBox.Show(ex.Message); }
         }
 
-        private void order_Click(object sender, RoutedEventArgs e)
-        {
-            string item = this.tbSearch.Text;
-            string ammount = this.tbAmmount.Text;
-            if (item==""||ammount=="")
-            { MessageBox.Show("Please input value!"); }
-            else { orderItem(item, ammount);
-                order_item.ItemsSource = showOrder().DefaultView; }
-        }
-
         public DataTable showOrder()
         {
             DataTable dt = new DataTable();
-            string sql = "select * from order_item inner join menu_item on order_item.item_id=menu_item.item_id where order_no=" + orderNo; 
+            string sql = "select * from order_item inner join menu_item on order_item.item_id=menu_item.item_id where order_no=" + orderNo;
             try
             {
                 DataSet ds = new DataSet();
@@ -136,5 +133,18 @@ namespace RMS
             return dt;
         }
 
+        private void order_Click(object sender, RoutedEventArgs e)
+        {
+            string item = this.tbSearch.Text;
+            string ammount = this.tbAmmount.Text;
+            if (item==""||ammount=="")
+            { MessageBox.Show("Please input value!"); }
+            else { orderItem(item, ammount);
+                order_item.ItemsSource = showOrder().DefaultView; }
+        }
+
+        //删除已点单操作，待完成
+
+        
     }
 }

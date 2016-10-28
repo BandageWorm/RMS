@@ -25,3 +25,21 @@ C:\Users\kurtg\Repo\RMS\RMS\obj\Debug\RMS.pdb
 F:\VS Project\RMS\RMS\bin\Debug\RMS.exe.config
 F:\VS Project\RMS\RMS\obj\Debug\RMS.exe
 F:\VS Project\RMS\RMS\obj\Debug\RMS.pdb
+C:\Users\kurtg\Documents\GitHub\RMS\RMS\bin\Debug\RMS.exe.config
+C:\Users\kurtg\Documents\GitHub\RMS\RMS\obj\Debug\RMS.csprojResolveAssemblyReference.cache
+C:\Users\kurtg\Documents\GitHub\RMS\RMS\obj\Debug\LoginWindow.g.cs
+C:\Users\kurtg\Documents\GitHub\RMS\RMS\obj\Debug\MainWindow.g.cs
+C:\Users\kurtg\Documents\GitHub\RMS\RMS\obj\Debug\App.g.cs
+C:\Users\kurtg\Documents\GitHub\RMS\RMS\obj\Debug\RMS_MarkupCompile.cache
+C:\Users\kurtg\Documents\GitHub\RMS\RMS\obj\Debug\RMS_MarkupCompile.lref
+C:\Users\kurtg\Documents\GitHub\RMS\RMS\bin\Debug\RMS.exe
+C:\Users\kurtg\Documents\GitHub\RMS\RMS\bin\Debug\RMS.pdb
+C:\Users\kurtg\Documents\GitHub\RMS\RMS\bin\Debug\MySql.Data.dll
+C:\Users\kurtg\Documents\GitHub\RMS\RMS\bin\Debug\MySql.Data.xml
+C:\Users\kurtg\Documents\GitHub\RMS\RMS\obj\Debug\LoginWindow.baml
+C:\Users\kurtg\Documents\GitHub\RMS\RMS\obj\Debug\MainWindow.baml
+C:\Users\kurtg\Documents\GitHub\RMS\RMS\obj\Debug\RMS.g.resources
+C:\Users\kurtg\Documents\GitHub\RMS\RMS\obj\Debug\RMS.Properties.Resources.resources
+C:\Users\kurtg\Documents\GitHub\RMS\RMS\obj\Debug\RMS.csproj.GenerateResource.Cache
+C:\Users\kurtg\Documents\GitHub\RMS\RMS\obj\Debug\RMS.exe
+C:\Users\kurtg\Documents\GitHub\RMS\RMS\obj\Debug\RMS.pdb
