@@ -1,4 +1,4 @@
-﻿<Window x:Name="MainWindow1" x:Class="RMS.MainWindow"
+﻿<Window x:Name="Main" x:Class="RMS.MainWindow"
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
@@ -35,15 +35,16 @@
         </DataGrid>
         <RadioButton x:Name="rbtQC" IsChecked="True" GroupName="searchvia" Content="Quick Code" FontSize="15" HorizontalAlignment="Left" Margin="197,10,0,0" Grid.Row="2" VerticalAlignment="Top"/>
         <RadioButton x:Name="rbtID" GroupName="searchvia" Content="ID" FontSize="15" HorizontalAlignment="Left" Margin="154,10,0,0" Grid.Row="2" VerticalAlignment="Top"/>
-        <TextBox x:Name="tbSearch" Height="20" Margin="94,10,0,0" Grid.Row="2" TextWrapping="Wrap" VerticalAlignment="Top" HorizontalAlignment="Left" Width="50"/>
+        <TextBox x:Name="tbSearch" Height="20" Margin="94,10,0,0" Grid.Row="2" TextWrapping="Wrap" VerticalAlignment="Top" HorizontalAlignment="Left" Width="50" DataContextChanged="search_Change"/>
         <Button x:Name="btSearch" Content="Search" Height="20" FontSize="15" Margin="450,10,90,0" VerticalAlignment="Top" Grid.Row="2" Click="search_Click"/>
         <Button x:Name="btOrderItem" Content="Order" Height="20" FontSize="15" Margin="0,10,20,0" VerticalAlignment="Top" Grid.Row="2" Click="order_Click" HorizontalAlignment="Right" Width="60"/>
         <Button x:Name="btAddOrder" Content="Create Order" Grid.Column="1" HorizontalAlignment="Right" Margin="0,10,20,0" Grid.Row="2" VerticalAlignment="Top" Width="100" Click="btAddOrder_Click"/>
         <TextBox x:Name="tbOrderTable" Text="Input table NO" Grid.Column="1" HorizontalAlignment="Left" Height="23" Margin="20,10,0,0" Grid.Row="2" TextWrapping="Wrap" VerticalAlignment="Top" Width="120"/>
         <!--下面的tbk需要设置为在order datagrid上显示当前的order_no-->
-        <TextBlock x:Name="tbkOrder" HorizontalAlignment="Left" Margin="20,0" TextWrapping="Wrap" Text="{Binding orderNo}" VerticalAlignment="Top" Grid.Row="1"/>
-        <TextBlock x:Name="tbkSearch" HorizontalAlignment="Left" Margin="20,5,0,0" TextWrapping="Wrap" Text="SEARCH ITEM" VerticalAlignment="Top" Height="20"/>
-        <TextBlock x:Name="tbkSearchWord" HorizontalAlignment="Left" Margin="20,10,0,0" Grid.Row="2" TextWrapping="Wrap" Text="KEYWORD" VerticalAlignment="Top"/>
+        <TextBlock x:Name="tbkOrder" HorizontalAlignment="Left" Margin="140,110,0,0" TextWrapping="Wrap" Text="*显示当前Order NO*" FontSize="15" VerticalAlignment="Top" Grid.RowSpan="2"/>
+        <TextBlock x:Name="tbkOrdertxt" HorizontalAlignment="Left" Margin="20,0" TextWrapping="Wrap" Text="RECENT ORDER:" FontSize="15" VerticalAlignment="Top" Grid.Row="1"/>
+        <TextBlock x:Name="tbkSearch" HorizontalAlignment="Left" Margin="20,5,0,0" TextWrapping="Wrap" Text="SEARCH ITEM:" FontSize="15" VerticalAlignment="Top" Height="20"/>
+        <TextBlock x:Name="tbkSearchWord" HorizontalAlignment="Left" Margin="20,10,0,0" Grid.Row="2" TextWrapping="Wrap" Text="KEYWORD" FontSize="15" VerticalAlignment="Top"/>
         <TextBlock x:Name="tbkAmount" FontSize="15" HorizontalAlignment="Left" Margin="315,10,0,0" Grid.Row="2" TextWrapping="Wrap" Text="Amount:" VerticalAlignment="Top"/>
         <TextBox x:Name="tbAmmount" Height="20" Margin="386,10,0,0" Grid.Row="2" TextWrapping="Wrap" VerticalAlignment="Top" HorizontalAlignment="Left" Width="50"/>
     </Grid>
