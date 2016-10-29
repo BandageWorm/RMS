@@ -138,9 +138,12 @@
             </TextBox.Style>
         </TextBox>
         <Button x:Name="btShowOrder" Content="Show Order" Grid.Column="1" HorizontalAlignment="Left" Margin="160,40,0,0" Grid.Row="2" VerticalAlignment="Top" Width="100" Click="btShowOrder_Click"/>
-        <TextBlock x:Name="tbkWelcome" HorizontalAlignment="Right" Margin="0,100,40,0" TextWrapping="Wrap" Text="WELCOME" FontSize="15" VerticalAlignment="Top" Grid.Row="2" Grid.Column="1"/>
-        <TextBlock x:Name="tbkAccount" HorizontalAlignment="Right" Margin="0,130,30,0" TextWrapping="Wrap" Text="{Binding Path=account}" FontSize="15" VerticalAlignment="Top" Grid.Row="2" Grid.Column="1"/>
+        <TextBlock x:Name="tbkWelcome" HorizontalAlignment="Right" Margin="0,30,40,0" TextWrapping="Wrap" Text="WELCOME" FontSize="15" VerticalAlignment="Top" Grid.Row="2" Grid.Column="1"/>
+        <TextBlock x:Name="tbkAccount" HorizontalAlignment="Right" Margin="0,76,50,0" TextWrapping="Wrap" Text="{Binding Path=account}" FontSize="15" VerticalAlignment="Top" Grid.Row="2" Grid.Column="1"/>
         <TextBlock x:Name="tbkCurOrder" HorizontalAlignment="Left" Margin="140,100,0,0" TextWrapping="Wrap" Text="{Binding Path=currentOrderNo}" FontSize="15" VerticalAlignment="Top" Grid.Row="2"/>
         <Button x:Name="btOrdering" Content="ORDERING:" Height="20" FontSize="15" Margin="20,100,0,0" VerticalAlignment="Top" Grid.Row="2" Click="btOrdering_Click" HorizontalAlignment="Left" Width="100"/>
+        <Button x:Name="btPassword"  Grid.Column="1" Margin="0,120,35,0" Grid.Row="2" VerticalAlignment="Top" HorizontalAlignment="Right" Width="76" Height="39" Click="btPassword_Click">
+            <TextBlock Text="Change Password" TextAlignment="Center" TextWrapping="wrap"/>
+        </Button>
     </Grid>
 </Window>

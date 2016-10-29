@@ -20,21 +20,23 @@ namespace RMS
 {
     public partial class MainWindow : Window
     {
-        static string rms = "Database='RMS';DataSource = 'localhost'; User Id = 'root'; Password = 'root'; charset = 'utf8'";
-        MySqlConnection con = new MySqlConnection(rms);
         public string account { get; set; }
         public string orderNo { get; set; }
         public string currentOrderNo { get; set; }
         public string totalBill { get; set; }
+        static string rms = "Database='RMS';DataSource = 'localhost'; User Id = 'root'; Password = 'root'; charset = 'utf8'";
+        MySqlConnection con = new MySqlConnection(rms);
         MySqlCommand cmd = new MySqlCommand();
+        
 
-        public MainWindow()
+        public MainWindow()//string act)
         {
+            //this.account = act;
+            this.account = "M00001";
             InitializeComponent();
             try { con.Open(); }
             catch (MySqlException ex) { MessageBox.Show(ex.Message); this.Close(); }
-            tbkAccount.DataContext = this;
-            this.account = "W00001";
+            tbkAccount.Text = this.account;
             dgBill.ItemsSource = showBill().DefaultView;
         }
 
@@ -154,7 +156,6 @@ namespace RMS
 
         public void cancelItem(string keyword)
         {
-
             cmd.Connection = con;
             if (this.rbtID.IsChecked == true)
                 cmd.CommandText = "DELETE FROM order_item WHERE item_id=" + keyword + " and category_id =(select category_id from menu_item where item_id=" + keyword + ") and order_no='" + orderNo + "'";
@@ -169,7 +170,7 @@ namespace RMS
             string keyword = tbKeyword.Text;
             if (keyword == "") { MessageBox.Show("Please input keyword!"); return; }
             cancelItem(keyword);
-            dgOrder.ItemsSource = showOrder(orderNo).DefaultView;
+            dgOrder.ItemsSource = showOrder(currentOrderNo).DefaultView;
         }
 
         private void btShowOrder_Click(object sender, RoutedEventArgs e)
@@ -203,6 +204,12 @@ namespace RMS
             catch (MySqlException ex)
             { MessageBox.Show(ex.Message); }
             return dt;
+        }
+
+        private void btPassword_Click(object sender, RoutedEventArgs e)
+        {
+            PWWindow pw = new PWWindow(account);
+            pw.Show();
         }
 
         //修改密码
