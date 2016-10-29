@@ -15,6 +15,7 @@ using System.Windows.Shapes;
 using MySql.Data;
 using MySql.Data.MySqlClient;
 using System.Data;
+using System.Text.RegularExpressions;
 
 namespace RMS
 {
@@ -28,16 +29,18 @@ namespace RMS
         MySqlConnection con = new MySqlConnection(rms);
         MySqlCommand cmd = new MySqlCommand();
         
-
         public MainWindow()//string act)
         {
-            //this.account = act;
-            this.account = "M00001";
             InitializeComponent();
+            string act = "W00001";
+            account = act;
+            tbkaccount.Text = this.account;
+            dgBill.ItemsSource = showBill().DefaultView;
+            Regex r = new Regex(@"M\d\d\d\d\d");
+            bool isManager = r.IsMatch(account);
+            if (isManager) { btEditUser.Visibility = Visibility.Visible; btEditMenu.Visibility = Visibility.Visible; }
             try { con.Open(); }
             catch (MySqlException ex) { MessageBox.Show(ex.Message); this.Close(); }
-            tbkAccount.Text = this.account;
-            dgBill.ItemsSource = showBill().DefaultView;
         }
 
         public DataTable showSearch(string keyword)
@@ -91,7 +94,6 @@ namespace RMS
             { MessageBox.Show(ex.Message); }
         }
 
-        //function for "create order" button
         private void btCreateOrder_Click(object sender, RoutedEventArgs e)
         {
             string table = this.tbOrderTable.Text;
@@ -212,9 +214,33 @@ namespace RMS
             pw.Show();
         }
 
-        //修改密码
+        private void btsetCurrent_Click(object sender, RoutedEventArgs e)
+        {
+            string orderNo = tbShowOrder.Text;
+            if (orderNo == "") { MessageBox.Show("Please input order number!"); return; }
+            currentOrderNo = orderNo.PadLeft(6, '0');
+            dgOrder.ItemsSource = showOrder(currentOrderNo).DefaultView;
+            this.tbkCurOrder.Text = this.currentOrderNo;
+        }
+
+        private void btSetPay_Click(object sender, RoutedEventArgs e)
+        {
+            string pay = tbPayOrder.Text;
+            if (pay == "") { MessageBox.Show("Please input payment!"); return; }
+            cmd.Connection = con;
+            cmd.CommandText = "UPDATE `order` SET actual_payment='" + pay + "' WHERE order_no='" + currentOrderNo + "'";
+            if(cmd.ExecuteNonQuery() != 1) MessageBox.Show("Failed to pay!");
+            dgBill.ItemsSource = showBill().DefaultView;
+        }
+
+        private void btResetPay_Click(object sender, RoutedEventArgs e)
+        {
+            cmd.Connection = con;
+            cmd.CommandText = "UPDATE `order` SET actual_payment='0' WHERE order_no='" + currentOrderNo + "'";
+            if (cmd.ExecuteNonQuery() != 1) MessageBox.Show("Failed to reset!");
+            dgBill.ItemsSource = showBill().DefaultView;
+        }
 
         //日月年报告
-
     }
 }
