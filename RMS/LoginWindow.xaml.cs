@@ -44,7 +44,7 @@ namespace RMS
             if (cmd.ExecuteScalar()!=null)
             {
                 MainWindow mWindow = new MainWindow();
-                mWindow.getAccount((string)cmd.ExecuteScalar());
+                mWindow.account = (string)cmd.ExecuteScalar();
                 this.Close();
                 mWindow.ShowDialog();     
             }
