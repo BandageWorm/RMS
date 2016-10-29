@@ -20,21 +20,18 @@ namespace RMS
 {
     public partial class MainWindow : Window
     {
-        static string account="W00001";
+        public string account { get; set; }
         static string rms = "Database='RMS';DataSource = 'localhost'; User Id = 'root'; Password = 'root'; charset = 'utf8'";
-        string currentOrderNo="";
+        public string currentOrderNo { get; set; }
         MySqlConnection con = new MySqlConnection(rms);
-        public void getAccount(string e)
-        { account = e; }
 
         public MainWindow()
         {
             InitializeComponent();
-            try
-            {
-                con.Open();
-            }
+            try { con.Open(); }
             catch (MySqlException ex) { MessageBox.Show(ex.Message); this.Close(); }
+            tbkAccount.DataContext = this;
+            this.account = "W00001";
         }
 
         public DataTable searchItem(string search)
@@ -57,17 +54,8 @@ namespace RMS
             return dt;
         }
 
-        private void search_Click(object sender, RoutedEventArgs e)
+        private void search_Change(object sender, TextChangedEventArgs e)
         {
-            string search = this.tbSearch.Text;
-            if (search == "")
-            { MessageBox.Show("Please input value!"); }
-            else
-            { search_item.ItemsSource = searchItem(search).DefaultView; }
-        }
-
-        private void search_Change(object sender, DependencyPropertyChangedEventArgs e)
-        {//打算做成输入值立即搜索，不用按search，数据绑定
             string search = this.tbSearch.Text;
             if (search != "")
             { search_item.ItemsSource = searchItem(search).DefaultView; }
@@ -84,9 +72,9 @@ namespace RMS
                 {
                     cmd.CommandText = "select order_no,order_time from `order` order by order_time desc";
                     uint on = (uint)cmd.ExecuteScalar();
-                    currentOrderNo = on.ToString();
-                    MessageBox.Show("Create order succeed!\n\nCurrent Order Number: "+ currentOrderNo.ToString().PadLeft(6,'0'));
-                    //显示当前单号，待完成：this.tbkSearch.DataContext = currentOrderNo.ToString().PadLeft(6, '0');
+                    currentOrderNo = on.ToString().PadLeft(6, '0');
+                    MessageBox.Show("Create order succeed!\n\nCurrent Order Number: "+ currentOrderNo);
+                    tbkOrder.Text = this.currentOrderNo;
                 }
                 else
                 { MessageBox.Show("Create order failed!"); }
@@ -103,10 +91,10 @@ namespace RMS
             { createOrder(table); }
         }
 
-        public DataTable showOrder()
+        public DataTable showOrder(string orderNo)
         {
             DataTable dt = new DataTable();
-            string sql = "select * from order_item inner join menu_item on order_item.item_id=menu_item.item_id where order_no=" + currentOrderNo;
+            string sql = "select * from order_item inner join menu_item on order_item.item_id=menu_item.item_id where order_no=" + orderNo;
             try
             {
                 DataSet ds = new DataSet();
@@ -143,10 +131,45 @@ namespace RMS
             if (item==""||ammount=="")
             { MessageBox.Show("Please input value!"); }
             else { orderItem(item, ammount);
-                order_item.ItemsSource = showOrder().DefaultView; }
+                order_item.ItemsSource = showOrder(currentOrderNo).DefaultView; }
         }
 
-        //删除已点单
+        public void cancelItem(string keyword)
+        {
+            MySqlCommand cmd = new MySqlCommand();
+            cmd.Connection = con;
+            if (this.rbtID.IsChecked == true)
+            { cmd.CommandText = "DELETE FROM order_item WHERE item_id=" + keyword + " and category_id =(select category_id from menu_item where item_id=" + keyword + ") and order_no='" + currentOrderNo + "'"; }
+            else
+            { cmd.CommandText = "DELETE FROM order_item WHERE item_code=" + keyword + " and category_id =(select category_id from menu_item where item_code=" + keyword + ") and order_no='" + currentOrderNo + "'"; }
+            try { if (cmd.ExecuteNonQuery() == 1) { MessageBox.Show("Order has been canceled!"); } }
+            catch (MySqlException ex) { MessageBox.Show(ex.Message); }
+        }
+
+        private void btCancel_Click(object sender, RoutedEventArgs e)
+        {
+            string keyword = tbSearch.Text;
+            if (keyword == "") { MessageBox.Show("Please input keyword!"); return; }
+            cancelItem(keyword);
+            order_item.ItemsSource = showOrder(currentOrderNo).DefaultView;
+        }
+
+        private void btCancel_MouseEnter(object sender, MouseEventArgs e)
+        {
+            order_item.ItemsSource = showOrder(currentOrderNo).DefaultView;
+        }
+
+        private void btShowOrder_Click(object sender, RoutedEventArgs e)
+        {
+            string orderNo = tbShowOrder.Text;
+            if (orderNo == "") { MessageBox.Show("Please input order number!"); return; }
+            order_item.ItemsSource = showOrder(orderNo).DefaultView;
+        }
+
+        private void btReturn_Click(object sender, RoutedEventArgs e)
+        {
+            order_item.ItemsSource = showOrder(currentOrderNo).DefaultView;
+        }
 
         //修改密码
 
