@@ -17,10 +17,11 @@
         </Grid.ColumnDefinitions>
         <DataGrid x:Name="dgBill" Margin="20,30,0,50.2" AutoGenerateColumns="False" Grid.RowSpan="2" Width="570" HorizontalAlignment="Left">
             <DataGrid.Columns>
-                <DataGridTextColumn Width="90" Header="Order NO." Binding="{Binding order_no}"/>
-                <DataGridTextColumn Width="120" Header="Waiter" Binding="{Binding staff_name}"/>
-                <DataGridTextColumn Width="70" Header="Bill" Binding="{Binding bill}"/>
-                <DataGridTextColumn Width="60" Header="Pay" Binding="{Binding actual_payment}"/>
+                <DataGridTextColumn Width="80" Header="Order NO." Binding="{Binding order_no}"/>
+                <DataGridTextColumn Width="95" Header="Waiter" Binding="{Binding staff_name}"/>
+                <DataGridTextColumn Width="60" Header="Bill" Binding="{Binding bill}"/>
+                <DataGridTextColumn Width="40" Header="Pay" Binding="{Binding actual_payment}"/>
+                <DataGridTextColumn Width="65" Header="Change" Binding="{Binding change}"/>
                 <DataGridTextColumn Width="50" Header="Table" Binding="{Binding table_no}"/>
                 <DataGridTextColumn Width="170" Header="Time" Binding="{Binding order_time}"/>
             </DataGrid.Columns>

@@ -42,11 +42,12 @@ namespace RMS
         public DataTable showBill()
         {
             DataTable dt = new DataTable();
-            string sql = "select c.order_no,staff_name,bill,actual_payment,table_no,order_time from" +
-            "(select * from `order` inner join staff on `order`.staff_account = staff.account) c " +
-            "left join (select order_no, sum(price * quantity) as bill from order_item" +
-            " a inner join menu_item b on a.item_id = b.item_id group by order_no) d on c.order_no" +
-            " = d.order_no where "+scale+" order by c.order_no asc";
+            string sql = @"select concat(c.order_no) as order_no,staff_name,bill,actual_payment,
+            format(actual_payment-bill,2) as `change`,table_no,order_time from (select * from 
+            `order` inner join staff on `order`.staff_account = staff.account) c left join 
+            (select order_no, sum(price * quantity) as bill from order_item a inner join menu_item
+            b on a.item_id = b.item_id group by order_no) d on c.order_no = d.order_no where "
+            +scale+" order by c.order_no asc";
             try
             {//Show DataGrid
                 DataSet ds = new DataSet();

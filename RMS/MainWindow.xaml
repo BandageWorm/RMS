@@ -18,29 +18,30 @@
             <ColumnDefinition Width="450"/>
             <ColumnDefinition Width="150"/>
         </Grid.ColumnDefinitions>
-        <DataGrid x:Name="dgSearch" Margin="20,30,20,10" AutoGenerateColumns="False">
+        <DataGrid x:Name="dgSearch" Margin="20,30,20,10" AutoGenerateColumns="False" Width="360">
             <DataGrid.Columns>
-                <DataGridTextColumn Width="60" Header="ID" Binding="{Binding item_id}"/>
-                <DataGridTextColumn Width="100" Header="Item" Binding="{Binding item_name}"/>
-                <DataGridTextColumn Width="100" Header="Price" Binding="{Binding price}"/>
-                <DataGridTextColumn Width="100" Header="Category" Binding="{Binding category}"/>
-                <DataGridTextColumn Width="300" Header="Info" Binding="{Binding item_info}"/>
+                <DataGridTextColumn Width="40" Header="ID" Binding="{Binding item_id}"/>
+                <DataGridTextColumn Width="80" Header="Item" Binding="{Binding item_name}"/>
+                <DataGridTextColumn Width="60" Header="Price" Binding="{Binding price}"/>
+                <DataGridTextColumn Width="80" Header="Category" Binding="{Binding category}"/>
+                <DataGridTextColumn Width="100" Header="Info" Binding="{Binding item_info}"/>
             </DataGrid.Columns>
         </DataGrid>
         <DataGrid x:Name="dgOrder" Margin="20,25,20,10" Grid.Row="1" AutoGenerateColumns="False">
             <DataGrid.Columns>
-                <DataGridTextColumn Width="100" Header="Item" Binding="{Binding item_name}"/>
-                <DataGridTextColumn Width="80" Header="Amount" Binding="{Binding quantity}"/>
-                <DataGridTextColumn Width="80" Header="Price" Binding="{Binding price}"/>
-                <DataGridTextColumn Width="300" Header="Info" Binding="{Binding item_info}"/>
+                <DataGridTextColumn Width="80" Header="Item" Binding="{Binding item_name}"/>
+                <DataGridTextColumn Width="70" Header="Amount" Binding="{Binding quantity}"/>
+                <DataGridTextColumn Width="60" Header="Price" Binding="{Binding price}"/>
+                <DataGridTextColumn Width="150" Header="Info" Binding="{Binding item_info}"/>
             </DataGrid.Columns>
         </DataGrid>
         <DataGrid x:Name="dgBill" Margin="0,30,20,10" AutoGenerateColumns="False" Grid.Column="1" Grid.RowSpan="2" Grid.ColumnSpan="2" Width="570" HorizontalAlignment="Left">
             <DataGrid.Columns>
-                <DataGridTextColumn Width="90" Header="Order NO." Binding="{Binding order_no}"/>
-                <DataGridTextColumn Width="120" Header="Waiter" Binding="{Binding staff_name}"/>
-                <DataGridTextColumn Width="70" Header="Bill" Binding="{Binding bill}"/>
-                <DataGridTextColumn Width="60" Header="Pay" Binding="{Binding actual_payment}"/>
+                <DataGridTextColumn Width="80" Header="Order NO." Binding="{Binding order_no}"/>
+                <DataGridTextColumn Width="95" Header="Waiter" Binding="{Binding staff_name}"/>
+                <DataGridTextColumn Width="60" Header="Bill" Binding="{Binding bill}"/>
+                <DataGridTextColumn Width="40" Header="Pay" Binding="{Binding actual_payment}"/>
+                <DataGridTextColumn Width="65" Header="Change" Binding="{Binding change}"/>
                 <DataGridTextColumn Width="50" Header="Table" Binding="{Binding table_no}"/>
                 <DataGridTextColumn Width="170" Header="Time" Binding="{Binding order_time}"/>
             </DataGrid.Columns>
