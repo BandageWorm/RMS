@@ -22,6 +22,7 @@ namespace RMS
     public partial class MainWindow : Window
     {
         public string account { get; set; }
+        public string name { get; set; }
         public string orderNo { get; set; }
         public string currentOrderNo { get; set; }
         public string totalBill { get; set; }
@@ -31,18 +32,30 @@ namespace RMS
         MySqlCommand cmd = new MySqlCommand();
         string today = Convert.ToDateTime(DateTime.Now).ToString("yyyy-MM-dd");
 
-        public MainWindow()//string act)
+        public MainWindow(string act)
         {
-            string act = "W00001";
+            //string act = "W00001";
             account = act;
             Regex r = new Regex(@"M\d\d\d\d\d");
             bool isManager = r.IsMatch(account);
-            if (isManager) { btEditUser.Visibility = Visibility.Visible; btEditMenu.Visibility = Visibility.Visible; }
             try { con.Open(); }
             catch (MySqlException ex) { MessageBox.Show(ex.Message); this.Close(); }
             InitializeComponent();
-            tbkaccount.Text = this.account;
+            if (isManager) { btEditUser.Visibility = Visibility.Visible; btEditMenu.Visibility = Visibility.Visible; }
+            getName();
+            tbkaccount.Text = this.name;
             dgBill.ItemsSource = showBill(today,today).DefaultView;
+        }
+
+        public void getName()
+        {
+            try
+            {
+                cmd.Connection = con;
+                cmd.CommandText = "select staff_name from staff where account='" + account+"'";
+                name = cmd.ExecuteScalar().ToString();
+            }
+            catch (MySqlException ex) { MessageBox.Show(ex.Message); }
         }
 
         public DataTable showSearch(string keyword)
@@ -343,6 +356,11 @@ namespace RMS
             string timeScale = Convert.ToDateTime(dpReport.Text).ToString("yyyy");
             ReportWindow report = new ReportWindow(timeScale, "yearly");
             report.Show();
+        }
+
+        private void btEditMenu_Click(object sender, RoutedEventArgs e)
+        {
+
         }
 
         //日月年报告

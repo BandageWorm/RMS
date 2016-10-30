@@ -43,8 +43,8 @@ namespace RMS
             cmd.CommandText = ("select account from staff where account='"+tbAccount.Text+"' and password='"+password+"'");
             if (cmd.ExecuteScalar()!=null)
             {
-                //MainWindow mWindow = new MainWindow((string)cmd.ExecuteScalar());
-                //mWindow.Show();
+                MainWindow mWindow = new MainWindow((string)cmd.ExecuteScalar());
+                mWindow.Show();
                 this.Close(); 
             }
             else
