@@ -17,7 +17,6 @@
             <ColumnDefinition Width="450"/>
             <ColumnDefinition Width="150"/>
         </Grid.ColumnDefinitions>
-        <Button x:Name="btOrdering" Content="SHOW" Height="20" Margin="260,20,0,0" VerticalAlignment="Top" Grid.Row="2" Click="btOrdering_Click" HorizontalAlignment="Left" Width="60" BorderThickness="2" FontFamily="Rockwell"/>
         <DataGrid x:Name="dgSearch" Margin="20,30,20,10" AutoGenerateColumns="False">
             <DataGrid.Columns>
                 <DataGridTextColumn Width="60" Header="ID" Binding="{Binding item_id}"/>
@@ -45,8 +44,8 @@
                 <DataGridTextColumn Width="170" Header="Time" Binding="{Binding order_time}"/>
             </DataGrid.Columns>
         </DataGrid>
-        <RadioButton x:Name="rbtQC" GroupName="searchvia" Content="Quick Code" FontSize="15" HorizontalAlignment="Left" Margin="189,72,0,0" Grid.Row="2" VerticalAlignment="Top" Width="100" FontFamily="Nirmala UI" FontWeight="Bold" Height="25"/>
-        <RadioButton x:Name="rbtID" IsChecked="True" GroupName="searchvia" Content="ID" FontSize="15" HorizontalAlignment="Left" Margin="150,72,0,0" Grid.Row="2" VerticalAlignment="Top" FontFamily="Nirmala UI" FontWeight="Bold" Width="100" Height="25"/>
+        <RadioButton x:Name="rbtQC" GroupName="searchvia" Content="Quick Code" FontSize="15" HorizontalAlignment="Left" Margin="194,72,0,0" Grid.Row="2" VerticalAlignment="Top" Width="100" FontFamily="Nirmala UI" FontWeight="Bold" Height="25"/>
+        <RadioButton x:Name="rbtID" IsChecked="True" GroupName="searchvia" Content="ID" FontSize="15" HorizontalAlignment="Left" Margin="150,72,0,0" Grid.Row="2" VerticalAlignment="Top" FontFamily="Nirmala UI" FontWeight="Bold" Width="39" Height="25"/>
         <TextBox x:Name="tbKeyword" Height="25" Margin="30,72,0,0" Grid.Row="2" TextWrapping="Wrap" VerticalAlignment="Top" HorizontalAlignment="Left" Width="70" TextChanged="tbKeyword_TextChanged">
             <TextBox.Resources>
                 <VisualBrush x:Key="HelpBrush" TileMode="None" Opacity="0.3" Stretch="None" AlignmentX="Left">
@@ -68,7 +67,7 @@
                 </Style>
             </TextBox.Style>
         </TextBox>
-        <Button x:Name="btCancel" Content="Cancel" Height="25" Margin="230,110,0,0" VerticalAlignment="Top" Grid.Row="2" Click="btCancel_Click" HorizontalAlignment="Left" Width="60" BorderThickness="2" FontFamily="Rockwell"/>
+        <Button x:Name="btCancel" Content="Cancel" Height="25" Margin="235,110,0,0" VerticalAlignment="Top" Grid.Row="2" Click="btCancel_Click" HorizontalAlignment="Left" Width="60" BorderThickness="2" FontFamily="Rockwell"/>
         <Button x:Name="btOrderItem" Content="Order" Height="25" Margin="152,110,0,0" VerticalAlignment="Top" Grid.Row="2" Click="order_Click" HorizontalAlignment="Left" Width="60" BorderThickness="2" FontFamily="Rockwell"/>
         <Button x:Name="btCreateOrder" Content="Create Order" Grid.Column="1" HorizontalAlignment="Left" Margin="110.2,20,0,0" Grid.Row="2" VerticalAlignment="Top" Width="100" Click="btCreateOrder_Click" BorderThickness="2" FontFamily="Rockwell" Height="25"/>
         <TextBox x:Name="tbOrderTable"   Grid.Column="1" Height="25" Margin="30.2,20,0,0" Grid.Row="2" TextWrapping="Wrap" VerticalAlignment="Top" FontSize="14" HorizontalAlignment="Left" Width="70">
@@ -139,9 +138,9 @@
                 </Style>
             </TextBox.Style>
         </TextBox>
-        <Button x:Name="btShowOrder" Content="Order Detail" Grid.Column="1" HorizontalAlignment="Left" Margin="110.2,77,0,0" Grid.Row="2" VerticalAlignment="Top" Width="100" Click="btShowOrder_Click" BorderThickness="2" FontFamily="Rockwell" Height="25"/>
+        <Button x:Name="btorderDetail" Content="Order Detail" Grid.Column="1" HorizontalAlignment="Left" Margin="110.2,77,0,0" Grid.Row="2" VerticalAlignment="Top" Width="100" Click="btorderDetail_Click" BorderThickness="2" FontFamily="Rockwell" Height="25"/>
         <TextBlock x:Name="tbkWelcome" Margin="0,0,0,100.4" TextWrapping="Wrap" Text="WELCOME" FontSize="17" Grid.Row="2" Grid.Column="2" HorizontalAlignment="Center" Height="20" VerticalAlignment="Bottom" Width="88" FontFamily="Bodoni MT"/>
-        <TextBlock x:Name="tbkCurOrder" HorizontalAlignment="Left" Margin="180,20,0,0" TextWrapping="Wrap" Text="{Binding Path=currentOrderNo}" FontSize="17" VerticalAlignment="Top" Grid.Row="2" Height="20" FontFamily="Bodoni MT"/>
+        <TextBlock x:Name="tbkCurOrder" HorizontalAlignment="Left" Margin="206,20,0,0" TextWrapping="Wrap" Text="{Binding Path=currentOrderNo}" FontSize="17" VerticalAlignment="Top" Grid.Row="2" Height="20" FontFamily="Bodoni MT" MouseEnter="tbkCurOrder_MouseEnter"/>
         <Button x:Name="btPassword"  Grid.Column="2" Margin="37.6,0,37.6,20" ContentStringFormat="wrap" Grid.Row="2" VerticalAlignment="Bottom" HorizontalAlignment="Center" Width="76" Height="40" BorderThickness="2" Click="btPassword_Click" FontFamily="Rockwell">
             <TextBlock x:Name="tbkpw" TextWrapping="Wrap" Text="Change Password" TextAlignment="Center"/>
         </Button>
@@ -170,10 +169,14 @@
             </TextBox.Style>
         </TextBox>
         <Button x:Name="btSetPay" Content="Paid" HorizontalAlignment="Left" Margin="152,150,0,0" Grid.Row="2" VerticalAlignment="Top" Width="60" BorderThickness="2" FontFamily="Rockwell" Click="btSetPay_Click" Height="25"/>
-        <Button x:Name="btResetPay" Content="Reset" HorizontalAlignment="Left" Margin="230,150,0,0" Grid.Row="2" VerticalAlignment="Top" Width="60" BorderThickness="2" FontFamily="Rockwell" Height="25" Click="btResetPay_Click"/>
+        <Button x:Name="btResetPay" Content="Reset" HorizontalAlignment="Left" Margin="235,150,0,0" Grid.Row="2" VerticalAlignment="Top" Width="60" BorderThickness="2" FontFamily="Rockwell" Height="25" Click="btResetPay_Click"/>
         <TextBlock x:Name="tbkOrdertxt_Copy" HorizontalAlignment="Left" Margin="30,20,0,0" TextWrapping="Wrap" Text="NOW ORDERING:" FontSize="17" VerticalAlignment="Top" Grid.Row="2" FontFamily="Bodoni MT"/>
         <Button x:Name="btEditUser" Content="User Edit" HorizontalAlignment="Right" Margin="0,0,199.4,20.4" Grid.Row="2" Width="80" BorderThickness="2" FontFamily="Rockwell" Grid.Column="1" Height="25" VerticalAlignment="Bottom" Background="#FFFD8E8E" Visibility="Hidden"/>
         <Button x:Name="btEditInfo" Content="Info Edit" HorizontalAlignment="Right" Margin="0,0,0,20" Grid.Row="2" Width="80" BorderThickness="2" FontFamily="Rockwell" Grid.Column="1" Height="25" VerticalAlignment="Bottom" Click="btEditInfo_Click"/>
         <Button x:Name="btEditMenu" Content="Menu Edit" HorizontalAlignment="Right" Margin="0,0,100,20.4" Grid.Row="2" Width="80" BorderThickness="2" FontFamily="Rockwell" Grid.Column="1" Height="25" VerticalAlignment="Bottom" Background="#FFFD8E8E" Visibility="Hidden"/>
+        <Button x:Name="btshowOrder" Content="Show Order" Grid.Column="1" HorizontalAlignment="Left" Margin="220.2,20,0,0" Grid.Row="2" VerticalAlignment="Top" Width="100" BorderThickness="2" FontFamily="Rockwell" Height="25" Click="btshowOrder_Click"/>
+        <TextBlock x:Name="tbkTotalBills" HorizontalAlignment="Right" Margin="0,5,20,0" TextWrapping="Wrap" Text="{Binding Path=totalBills}" FontSize="17" VerticalAlignment="Top" FontFamily="Bodoni MT" Grid.Column="2"/>
+        <TextBlock x:Name="tbkBill_Copy" HorizontalAlignment="Right" Margin="0,5,90,0" TextWrapping="Wrap" Text="BILL:" FontSize="17" VerticalAlignment="Top" FontFamily="Bodoni MT" Grid.Column="2"/>
+
     </Grid>
 </Window>

@@ -25,6 +25,7 @@ namespace RMS
         public string orderNo { get; set; }
         public string currentOrderNo { get; set; }
         public string totalBill { get; set; }
+        public string totalBills { get; set; }
         static string rms = "Database='RMS';DataSource = 'localhost'; User Id = 'root'; Password = 'root'; charset = 'utf8'";
         MySqlConnection con = new MySqlConnection(rms);
         MySqlCommand cmd = new MySqlCommand();
@@ -108,19 +109,20 @@ namespace RMS
             string sql = "select * from order_item inner join menu_item on order_item.item_id=menu_item.item_id where order_no=" + order;
             string sqlbill = "select format(sum(price*quantity),2) from order_item a inner join menu_item b on a.item_id=b.item_id where order_no=" + order;
             try
-            {//Show DataGrid
+            {   //Show DataGrid
                 DataSet ds = new DataSet();
                 MySqlDataAdapter sda = new MySqlDataAdapter(sql, con);
                 sda.Fill(ds, "order_item");
                 dt = ds.Tables["order_item"];
-                //Show related info
+                //Show Bill
                 cmd.CommandText = sqlbill;
                 cmd.Connection = con;
                 if (cmd.ExecuteScalar() == DBNull.Value) totalBill = "0.00";
                 else totalBill = (string)cmd.ExecuteScalar();
+                tbkTotalBill.Text = this.totalBill;
+                //Show Order No
                 orderNo = order.PadLeft(6, '0');
                 tbkOrder.Text = this.orderNo;
-                tbkTotalBill.Text = this.totalBill;
             }
             catch (MySqlException ex)
             { MessageBox.Show(ex.Message); }
@@ -160,9 +162,9 @@ namespace RMS
         {
             cmd.Connection = con;
             if (this.rbtID.IsChecked == true)
-                cmd.CommandText = "DELETE FROM order_item WHERE item_id=" + keyword + " and category_id =(select category_id from menu_item where item_id=" + keyword + ") and order_no='" + orderNo + "'";
+                cmd.CommandText = "DELETE FROM order_item WHERE item_id=" + keyword + " and category_id =(select category_id from menu_item where item_id=" + keyword + ") and order_no=" + orderNo;
             else
-                cmd.CommandText = "DELETE FROM order_item WHERE item_code=" + keyword + " and category_id =(select category_id from menu_item where item_code=" + keyword + ") and order_no='" + orderNo + "'";
+                cmd.CommandText = "DELETE FROM order_item WHERE item_id=(select item_id from menu_item where item_code='"+keyword+"') and category_id =(select category_id from menu_item where item_code='"+keyword+"') and order_no=" + orderNo;
             try { if (cmd.ExecuteNonQuery() == 1) MessageBox.Show("Order has been canceled!"); }
             catch (MySqlException ex) { MessageBox.Show(ex.Message); }
         }
@@ -173,19 +175,14 @@ namespace RMS
             if (keyword == "") { MessageBox.Show("Please input keyword!"); return; }
             cancelItem(keyword);
             dgOrder.ItemsSource = showOrder(currentOrderNo).DefaultView;
+            dgBill.ItemsSource = showBill().DefaultView;
         }
 
-        private void btShowOrder_Click(object sender, RoutedEventArgs e)
+        private void btorderDetail_Click(object sender, RoutedEventArgs e)
         {
             string orderNo = tbShowOrder.Text;
             if (orderNo == "") { MessageBox.Show("Please input order number!"); return; }
             dgOrder.ItemsSource = showOrder(orderNo).DefaultView;
-        }
-
-        private void btOrdering_Click(object sender, RoutedEventArgs e)
-        {
-            if (currentOrderNo == null) { MessageBox.Show("No current order!"); return; }
-            dgOrder.ItemsSource = showOrder(currentOrderNo).DefaultView;
         }
 
         public DataTable showBill()
@@ -193,7 +190,7 @@ namespace RMS
             DataTable dt = new DataTable();
             string sql = "select c.order_no,staff_name,bill,actual_payment,table_no,order_time from" +
             "(select * from `order` inner join staff on `order`.staff_account = staff.account) c " +
-            "left join (select order_no, format(sum(price * quantity), 2) as bill from order_item" +
+            "left join (select order_no, sum(price * quantity) as bill from order_item" +
             " a inner join menu_item b on a.item_id = b.item_id group by order_no) d on c.order_no" +
             " = d.order_no order by c.order_no asc";
             try
@@ -205,6 +202,32 @@ namespace RMS
             }
             catch (MySqlException ex)
             { MessageBox.Show(ex.Message); }
+            object sum = dt.Compute("sum(bill)", "TRUE");
+            totalBills = ((double)sum).ToString("f2");
+            tbkTotalBills.Text = this.totalBills;
+            return dt;
+        }
+
+        public DataTable showBill(string table)
+        {
+            DataTable dt = new DataTable();
+            string sql = "select c.order_no,staff_name,bill,actual_payment,table_no,order_time from" +
+            "(select * from `order` inner join staff on `order`.staff_account = staff.account) c " +
+            "left join (select order_no, sum(price * quantity) as bill from order_item" +
+            " a inner join menu_item b on a.item_id = b.item_id group by order_no) d on c.order_no" +
+            " = d.order_no where table_no = "+table+" order by c.order_no asc";
+            try
+            {//Show DataGrid
+                DataSet ds = new DataSet();
+                MySqlDataAdapter sda = new MySqlDataAdapter(sql, con);
+                sda.Fill(ds, "order_item");
+                dt = ds.Tables["order_item"];
+            }
+            catch (MySqlException ex)
+            { MessageBox.Show(ex.Message); }
+            object sum = dt.Compute("sum(bill)", "TRUE");
+            totalBills = ((double)sum).ToString("f2");
+            tbkTotalBills.Text = this.totalBills;
             return dt;
         }
 
@@ -245,6 +268,18 @@ namespace RMS
         {
             EditInfoWindow EditInfo = new EditInfoWindow();
             EditInfo.Show();
+        }
+
+        private void btshowOrder_Click(object sender, RoutedEventArgs e)
+        {
+            string table = this.tbOrderTable.Text;
+            if (table == "") dgBill.ItemsSource = showBill().DefaultView;
+            else dgBill.ItemsSource = showBill(table).DefaultView;
+        }
+
+        private void tbkCurOrder_MouseEnter(object sender, MouseEventArgs e)
+        {
+            if(currentOrderNo != null) dgOrder.ItemsSource = showOrder(currentOrderNo).DefaultView;
         }
 
         //日月年报告
