@@ -53,7 +53,7 @@
         <RadioButton x:Name="rbtID" IsChecked="True" GroupName="searchvia" Content="ID" FontSize="15" HorizontalAlignment="Left" Margin="165,60,0,0" Grid.Row="2" VerticalAlignment="Top" FontFamily="Nirmala UI" FontWeight="Bold" Width="39" Height="25"/>
         <TextBox x:Name="tbKeyword" Margin="60,60,0,0" Grid.Row="2" TextWrapping="Wrap" HorizontalAlignment="Left" Width="70" TextChanged="tbKeyword_TextChanged" VerticalAlignment="Top" Height="23">
             <TextBox.Resources>
-                <VisualBrush x:Key="HelpBrush" TileMode="None" Opacity="0.3" Stretch="None" AlignmentX="Left">
+                <VisualBrush x:Key="HelpBrush" Opacity="0.3" Stretch="None" AlignmentX="Left">
                     <VisualBrush.Visual>
                         <TextBlock FontStyle="Italic" Text="Keyword"/>
                     </VisualBrush.Visual>
@@ -144,7 +144,7 @@
             </TextBox.Style>
         </TextBox>
         <Button x:Name="btorderDetail" Content="Check" HorizontalAlignment="Left" Margin="163,165,0,0" Grid.Row="2" VerticalAlignment="Top" Width="60" Click="btorderDetail_Click" BorderThickness="2" FontFamily="Rockwell" Height="25"/>
-        <TextBlock x:Name="tbkWelcome" Margin="21.6,10,41.6,0" TextWrapping="Wrap" Text="WELCOME" FontSize="17" Grid.Row="2" Grid.Column="2" HorizontalAlignment="Center" Height="20" VerticalAlignment="Top" Width="88" FontFamily="Bodoni MT"/>
+        <TextBlock x:Name="tbkWelcome" Margin="21.6,15,41.6,0" TextWrapping="Wrap" Text="WELCOME" FontSize="17" Grid.Row="2" Grid.Column="2" HorizontalAlignment="Center" Height="20" VerticalAlignment="Top" Width="88" FontFamily="Bodoni MT"/>
         <TextBlock x:Name="tbkCurOrder" HorizontalAlignment="Left" Margin="242,25,0,0" TextWrapping="Wrap" Text="{Binding Path=currentOrderNo}" FontSize="17" VerticalAlignment="Top" Grid.Row="2" Height="20" FontFamily="Bodoni MT" MouseEnter="tbkCurOrder_MouseEnter"/>
         <Button x:Name="btPassword"  Grid.Column="2" Margin="27.6,0,47.6,30.4" ContentStringFormat="wrap" Grid.Row="2" VerticalAlignment="Bottom" HorizontalAlignment="Center" Width="76" Height="40" BorderThickness="2" Click="btPassword_Click" FontFamily="Rockwell">
             <TextBlock x:Name="tbkpw" TextWrapping="Wrap" Text="Change Password" TextAlignment="Center"/>
@@ -196,8 +196,8 @@
         <Border BorderBrush="{DynamicResource {x:Static SystemColors.ActiveBorderBrushKey}}" BorderThickness="1" Margin="20,10,20,20" Grid.Row="2" Panel.ZIndex="-1" Background="#FFF0F0F0"/>
         <Border BorderBrush="{DynamicResource {x:Static SystemColors.ActiveBorderBrushKey}}" BorderThickness="1" Grid.Column="1" Margin="15.2,100,220.4,20.4" Grid.Row="2" Panel.ZIndex="-1" Background="#FFF0F0F0"/>
         <Border BorderBrush="{DynamicResource {x:Static SystemColors.ActiveBorderBrushKey}}" BorderThickness="1" Grid.Column="1" Margin="275.2,10,30.4,20.4" Grid.Row="2" Panel.ZIndex="-1" Background="#FFF0F0F0"/>
-        <Border BorderBrush="{DynamicResource {x:Static SystemColors.ActiveBorderBrushKey}}" BorderThickness="1" Grid.Column="1" Margin="15.2,10,220.4,140.4" Grid.Row="2" Panel.ZIndex="-1" Background="#FFF0F0F0"/>
+        <Border BorderBrush="{DynamicResource {x:Static SystemColors.ActiveBorderBrushKey}}" BorderThickness="1" Grid.Column="1" Margin="15.2,10,220.4,135" Grid.Row="2" Panel.ZIndex="-1" Background="#FFF0F0F0"/>
         <Border BorderBrush="{DynamicResource {x:Static SystemColors.ActiveBorderBrushKey}}" BorderThickness="1" Grid.Column="2" Margin="9.6,10,29.6,20.4" Grid.Row="2" Panel.ZIndex="-1" Background="#FFF0F0F0"/>
-        <TextBlock x:Name="tbkChooseDate_Copy" HorizontalAlignment="Left" Margin="26.2,0,0,185.4" TextWrapping="Wrap" Text="TABLE:" FontSize="17" VerticalAlignment="Bottom" Grid.Row="2" FontFamily="Bodoni MT" Grid.Column="1" Height="25"/>
+        <TextBlock x:Name="tbkChooseDate_Copy" HorizontalAlignment="Left" Margin="25.2,20,0,0" TextWrapping="Wrap" Text="TABLE:" FontSize="17" VerticalAlignment="Top" Grid.Row="2" FontFamily="Bodoni MT" Grid.Column="1" Height="25"/>
     </Grid>
 </Window>
