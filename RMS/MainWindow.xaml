@@ -170,10 +170,10 @@
             </TextBox.Style>
         </TextBox>
         <Button x:Name="btSetPay" Content="Paid" HorizontalAlignment="Left" Margin="152,150,0,0" Grid.Row="2" VerticalAlignment="Top" Width="60" BorderThickness="2" FontFamily="Rockwell" Click="btSetPay_Click" Height="25"/>
-        <Button x:Name="btResetPay" Content="Paid" HorizontalAlignment="Left" Margin="230,150,0,0" Grid.Row="2" VerticalAlignment="Top" Width="60" BorderThickness="2" FontFamily="Rockwell" Height="25" Click="btResetPay_Click"/>
+        <Button x:Name="btResetPay" Content="Reset" HorizontalAlignment="Left" Margin="230,150,0,0" Grid.Row="2" VerticalAlignment="Top" Width="60" BorderThickness="2" FontFamily="Rockwell" Height="25" Click="btResetPay_Click"/>
         <TextBlock x:Name="tbkOrdertxt_Copy" HorizontalAlignment="Left" Margin="30,20,0,0" TextWrapping="Wrap" Text="NOW ORDERING:" FontSize="17" VerticalAlignment="Top" Grid.Row="2" FontFamily="Bodoni MT"/>
         <Button x:Name="btEditUser" Content="User Edit" HorizontalAlignment="Right" Margin="0,0,199.4,20.4" Grid.Row="2" Width="80" BorderThickness="2" FontFamily="Rockwell" Grid.Column="1" Height="25" VerticalAlignment="Bottom" Background="#FFFD8E8E" Visibility="Hidden"/>
-        <Button x:Name="btEditInfo" Content="Info Edit" HorizontalAlignment="Right" Margin="0,0,0,20" Grid.Row="2" Width="80" BorderThickness="2" FontFamily="Rockwell" Grid.Column="1" Height="25" VerticalAlignment="Bottom"/>
+        <Button x:Name="btEditInfo" Content="Info Edit" HorizontalAlignment="Right" Margin="0,0,0,20" Grid.Row="2" Width="80" BorderThickness="2" FontFamily="Rockwell" Grid.Column="1" Height="25" VerticalAlignment="Bottom" Click="btEditInfo_Click"/>
         <Button x:Name="btEditMenu" Content="Menu Edit" HorizontalAlignment="Right" Margin="0,0,100,20.4" Grid.Row="2" Width="80" BorderThickness="2" FontFamily="Rockwell" Grid.Column="1" Height="25" VerticalAlignment="Bottom" Background="#FFFD8E8E" Visibility="Hidden"/>
     </Grid>
 </Window>

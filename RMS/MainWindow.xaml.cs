@@ -241,6 +241,12 @@ namespace RMS
             dgBill.ItemsSource = showBill().DefaultView;
         }
 
+        private void btEditInfo_Click(object sender, RoutedEventArgs e)
+        {
+            EditInfoWindow EditInfo = new EditInfoWindow();
+            EditInfo.Show();
+        }
+
         //日月年报告
     }
 }
