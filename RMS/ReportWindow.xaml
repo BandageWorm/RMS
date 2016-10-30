@@ -1,0 +1,46 @@
+﻿<Window x:Class="RMS.ReportWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:RMS"
+        mc:Ignorable="d"
+        Title="ReportWindow" Height="500" Width="900" ResizeMode="CanMinimize" WindowStartupLocation="CenterScreen">
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="400"/>
+            <RowDefinition Height="auto"/>
+        </Grid.RowDefinitions>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="2*"/>
+            <ColumnDefinition Width="1*"/>
+        </Grid.ColumnDefinitions>
+        <DataGrid x:Name="dgBill" Margin="20,30,0,50.2" AutoGenerateColumns="False" Grid.RowSpan="2" Width="570" HorizontalAlignment="Left">
+            <DataGrid.Columns>
+                <DataGridTextColumn Width="90" Header="Order NO." Binding="{Binding order_no}"/>
+                <DataGridTextColumn Width="120" Header="Waiter" Binding="{Binding staff_name}"/>
+                <DataGridTextColumn Width="70" Header="Bill" Binding="{Binding bill}"/>
+                <DataGridTextColumn Width="60" Header="Pay" Binding="{Binding actual_payment}"/>
+                <DataGridTextColumn Width="50" Header="Table" Binding="{Binding table_no}"/>
+                <DataGridTextColumn Width="170" Header="Time" Binding="{Binding order_time}"/>
+            </DataGrid.Columns>
+        </DataGrid>
+        <TextBlock x:Name="tbkOrder" HorizontalAlignment="Left" Margin="20,5,0,0" TextWrapping="Wrap" Text="ORDERS" FontSize="17" VerticalAlignment="Top" Height="20" FontFamily="Bodoni MT" Width="72"/>
+        <DataGrid x:Name="dgCount" Margin="20,30,0,50.2" AutoGenerateColumns="False" Grid.RowSpan="2" HorizontalAlignment="Left" Width="250" Grid.Column="1">
+            <DataGrid.Columns>
+                <DataGridTextColumn Width="50" Header="ID" Binding="{Binding item_id}"/>
+                <DataGridTextColumn Width="120" Header="Item" Binding="{Binding item_name}"/>
+                <DataGridTextColumn Width="70" Header="Count" Binding="{Binding count}"/>
+            </DataGrid.Columns>
+        </DataGrid>
+        <TextBlock x:Name="tbkOrder_Copy" HorizontalAlignment="Left" Margin="20,5,0,0" TextWrapping="Wrap" Text="MENU COUNTS" FontSize="17" VerticalAlignment="Top" Height="20" FontFamily="Bodoni MT" Width="154" Grid.Column="1"/>
+        <TextBlock x:Name="tbkOrder_Copy1" HorizontalAlignment="Left" Margin="20,20.4,0,0" TextWrapping="Wrap" Text="ORDER NUMBER:" FontSize="17" VerticalAlignment="Top" Height="20" FontFamily="Bodoni MT" Width="152" Grid.Row="1"/>
+        <TextBlock x:Name="tbkOrder_Copy2" HorizontalAlignment="Left" Margin="239,20.2,0,0" TextWrapping="Wrap" Text="TOTAL INCOME:" FontSize="17" VerticalAlignment="Top" Height="20" FontFamily="Bodoni MT" Width="152" Grid.Row="1"/>
+        <TextBlock x:Name="tbkTotalOrder" Margin="174,20.4,0,0" TextWrapping="Wrap" Text="{Binding totalOrder}" FontSize="17" VerticalAlignment="Top" FontFamily="Bodoni MT" HorizontalAlignment="Left" Height="20" Grid.Row="1"/>
+        <TextBlock x:Name="tbkTotalIncome" HorizontalAlignment="Left" Margin="380,20.2,0,0" Grid.Row="1" TextWrapping="Wrap" Text="{Binding Path=totalIncome}" VerticalAlignment="Top" FontFamily="Bodoni MT" FontSize="17" Height="20"/>
+        <Button x:Name="btOK" Content="OK" HorizontalAlignment="Center" Margin="140,19.2,73.6,0" Grid.Row="1" VerticalAlignment="Top" Width="84" BorderThickness="2" FontFamily="Rockwell" Height="25" Grid.Column="1" Click="btOK_Click"/>
+        <TextBlock x:Name="tbkOrder_Copy3" HorizontalAlignment="Left" Margin="485,20.2,0,0" TextWrapping="Wrap" Text="TOTAL PAY:" FontSize="17" VerticalAlignment="Top" Height="20" FontFamily="Bodoni MT" Width="104" Grid.Row="1"/>
+        <TextBlock x:Name="tbkTotalPay" HorizontalAlignment="Left" Margin="0,20.2,0,0" Grid.Row="1" TextWrapping="Wrap" Text="{Binding totalPay}" VerticalAlignment="Top" FontFamily="Bodoni MT" FontSize="17" Height="20" Grid.Column="1"/>
+
+    </Grid>
+</Window>

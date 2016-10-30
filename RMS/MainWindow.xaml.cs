@@ -29,19 +29,20 @@ namespace RMS
         static string rms = "Database='RMS';DataSource = 'localhost'; User Id = 'root'; Password = 'root'; charset = 'utf8'";
         MySqlConnection con = new MySqlConnection(rms);
         MySqlCommand cmd = new MySqlCommand();
-        
+        string today = Convert.ToDateTime(DateTime.Now).ToString("yyyy-MM-dd");
+
         public MainWindow()//string act)
         {
-            InitializeComponent();
             string act = "W00001";
             account = act;
-            tbkaccount.Text = this.account;
-            dgBill.ItemsSource = showBill().DefaultView;
             Regex r = new Regex(@"M\d\d\d\d\d");
             bool isManager = r.IsMatch(account);
             if (isManager) { btEditUser.Visibility = Visibility.Visible; btEditMenu.Visibility = Visibility.Visible; }
             try { con.Open(); }
             catch (MySqlException ex) { MessageBox.Show(ex.Message); this.Close(); }
+            InitializeComponent();
+            tbkaccount.Text = this.account;
+            dgBill.ItemsSource = showBill(today,today).DefaultView;
         }
 
         public DataTable showSearch(string keyword)
@@ -85,7 +86,7 @@ namespace RMS
                     currentOrderNo = orderNo;
                     tbkCurOrder.Text = this.currentOrderNo;
                     dgOrder.ItemsSource = showOrder(currentOrderNo).DefaultView;
-                    dgBill.ItemsSource = showBill().DefaultView;
+                    dgBill.ItemsSource = showBill(today, today).DefaultView;
                     MessageBox.Show("Create order succeed!\n\nCurrent Order Number: " + orderNo);
                 }
                 else
@@ -100,7 +101,6 @@ namespace RMS
             string table = this.tbOrderTable.Text;
             if (table == "") MessageBox.Show("Please input value!");
             else createOrder(table);
-            dgBill.ItemsSource = showBill().DefaultView;
         }
 
         public DataTable showOrder(string order)
@@ -154,7 +154,7 @@ namespace RMS
             {
                 orderItem(item, ammount);
                 dgOrder.ItemsSource = showOrder(orderNo).DefaultView;
-                dgBill.ItemsSource = showBill().DefaultView;
+                dgBill.ItemsSource = showBill(today, today).DefaultView;
             }
         }
 
@@ -175,7 +175,7 @@ namespace RMS
             if (keyword == "") { MessageBox.Show("Please input keyword!"); return; }
             cancelItem(keyword);
             dgOrder.ItemsSource = showOrder(currentOrderNo).DefaultView;
-            dgBill.ItemsSource = showBill().DefaultView;
+            dgBill.ItemsSource = showBill(today, today).DefaultView;
         }
 
         private void btorderDetail_Click(object sender, RoutedEventArgs e)
@@ -188,7 +188,7 @@ namespace RMS
         public DataTable showBill()
         {
             DataTable dt = new DataTable();
-            string sql = "select c.order_no,staff_name,bill,actual_payment,table_no,order_time from" +
+            string sql = "select concat(c.order_no) as order_no,staff_name,bill,actual_payment,table_no,order_time from" +
             "(select * from `order` inner join staff on `order`.staff_account = staff.account) c " +
             "left join (select order_no, sum(price * quantity) as bill from order_item" +
             " a inner join menu_item b on a.item_id = b.item_id group by order_no) d on c.order_no" +
@@ -211,7 +211,7 @@ namespace RMS
         public DataTable showBill(string table)
         {
             DataTable dt = new DataTable();
-            string sql = "select c.order_no,staff_name,bill,actual_payment,table_no,order_time from" +
+            string sql = "select concat(c.order_no) as order_no,staff_name,bill,actual_payment,table_no,order_time from" +
             "(select * from `order` inner join staff on `order`.staff_account = staff.account) c " +
             "left join (select order_no, sum(price * quantity) as bill from order_item" +
             " a inner join menu_item b on a.item_id = b.item_id group by order_no) d on c.order_no" +
@@ -234,12 +234,12 @@ namespace RMS
         public DataTable showBill(string startDate,string endDate)
         {
             DataTable dt = new DataTable();
-            string sql = "select c.order_no,staff_name,bill,actual_payment,table_no,order_time from" +
+            string sql = "select concat(c.order_no) as order_no,staff_name,bill,actual_payment,table_no,order_time from" +
             "(select * from `order` inner join staff on `order`.staff_account = staff.account) c " +
             "left join (select order_no, sum(price * quantity) as bill from order_item" +
             " a inner join menu_item b on a.item_id = b.item_id group by order_no) d on c.order_no" +
-            " = d.order_no where order_time>='"+startDate+" 00:00:00' and order_time<= '"+endDate+
-            " 23:59:59' order by c.order_no asc";
+            " = d.order_no where date_format(order_time,'%Y-%m-%d')>='" + startDate+ "' and date_format(order_time,'%Y-%m-%d')<='" + endDate+
+            "' order by c.order_no asc";
             try
             {//Show DataGrid
                 DataSet ds = new DataSet();
@@ -277,7 +277,7 @@ namespace RMS
             cmd.Connection = con;
             cmd.CommandText = "UPDATE `order` SET actual_payment='" + pay + "' WHERE order_no='" + currentOrderNo + "'";
             if(cmd.ExecuteNonQuery() != 1) MessageBox.Show("Failed to pay!");
-            dgBill.ItemsSource = showBill().DefaultView;
+            dgBill.ItemsSource = showBill(today, today).DefaultView;
         }
 
         private void btResetPay_Click(object sender, RoutedEventArgs e)
@@ -285,7 +285,7 @@ namespace RMS
             cmd.Connection = con;
             cmd.CommandText = "UPDATE `order` SET actual_payment='0' WHERE order_no='" + currentOrderNo + "'";
             if (cmd.ExecuteNonQuery() != 1) MessageBox.Show("Failed to reset!");
-            dgBill.ItemsSource = showBill().DefaultView;
+            dgBill.ItemsSource = showBill(today, today).DefaultView;
         }
 
         private void btEditInfo_Click(object sender, RoutedEventArgs e)
@@ -295,9 +295,9 @@ namespace RMS
         }
 
         private void btshowOrder_Click(object sender, RoutedEventArgs e)
-        {
+        {//search order by table no
             string table = this.tbOrderTable.Text;
-            if (table == "") dgBill.ItemsSource = showBill().DefaultView;
+            if (table == "") dgBill.ItemsSource = showBill(today, today).DefaultView;
             else dgBill.ItemsSource = showBill(table).DefaultView;
         }
 
@@ -322,6 +322,27 @@ namespace RMS
         private void btAllOrder_Click(object sender, RoutedEventArgs e)
         {
             dgBill.ItemsSource = showBill().DefaultView;
+        }
+
+        private void btReportDaily_Click(object sender, RoutedEventArgs e)
+        {
+            string timeScale = Convert.ToDateTime(dpReport.Text).ToString("yyyy-MM-dd");
+            ReportWindow report = new ReportWindow(timeScale, "daily");
+            report.Show();
+        }
+
+        private void btReportMonthly_Click(object sender, RoutedEventArgs e)
+        {
+            string timeScale = Convert.ToDateTime(dpReport.Text).ToString("yyyy-MM");
+            ReportWindow report = new ReportWindow(timeScale, "monthly");
+            report.Show();
+        }
+
+        private void btReportYearly_Click(object sender, RoutedEventArgs e)
+        {
+            string timeScale = Convert.ToDateTime(dpReport.Text).ToString("yyyy");
+            ReportWindow report = new ReportWindow(timeScale, "yearly");
+            report.Show();
         }
 
         //日月年报告
