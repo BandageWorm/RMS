@@ -1,18 +1,7 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
 using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Navigation;
-using System.Windows.Shapes;
-using MySql.Data;
 using MySql.Data.MySqlClient;
 using System.Data;
 using System.Text.RegularExpressions;
@@ -33,9 +22,9 @@ namespace RMS
         MySqlCommand cmd = new MySqlCommand();
         string today = Convert.ToDateTime(DateTime.Now).ToString("yyyy-MM-dd");
 
-        public MainWindow()//string act)
+        public MainWindow(string act)
         {
-            string act = "W00001";
+            //string act = "M00001";
             account = act;
             Regex r = new Regex(@"M\d\d\d\d\d");
             bool isManager = r.IsMatch(account);
@@ -382,7 +371,8 @@ namespace RMS
 
         private void btEditMenu_Click(object sender, RoutedEventArgs e)
         {
-
+            MenuWindow menu = new MenuWindow();
+            menu.Show();
         }
     }
 }

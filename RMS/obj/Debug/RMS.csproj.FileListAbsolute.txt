@@ -45,9 +45,9 @@ C:\Users\kurtg\Documents\GitHub\RMS\RMS\bin\Debug\RMS.exe
 C:\Users\kurtg\Documents\GitHub\RMS\RMS\bin\Debug\RMS.pdb
 C:\Users\kurtg\Documents\GitHub\RMS\RMS\bin\Debug\MySql.Data.dll
 C:\Users\kurtg\Documents\GitHub\RMS\RMS\bin\Debug\MySql.Data.xml
-C:\Users\kurtg\Documents\GitHub\RMS\RMS\obj\Debug\RMS.csprojResolveAssemblyReference.cache
 C:\Users\kurtg\Documents\GitHub\RMS\RMS\obj\Debug\LoginWindow.g.cs
 C:\Users\kurtg\Documents\GitHub\RMS\RMS\obj\Debug\MainWindow.g.cs
+C:\Users\kurtg\Documents\GitHub\RMS\RMS\obj\Debug\MenuWindow.g.cs
 C:\Users\kurtg\Documents\GitHub\RMS\RMS\obj\Debug\PWWindow.g.cs
 C:\Users\kurtg\Documents\GitHub\RMS\RMS\obj\Debug\EditInfoWindow.g.cs
 C:\Users\kurtg\Documents\GitHub\RMS\RMS\obj\Debug\ReportWindow.g.cs
@@ -57,6 +57,7 @@ C:\Users\kurtg\Documents\GitHub\RMS\RMS\obj\Debug\RMS_MarkupCompile.cache
 C:\Users\kurtg\Documents\GitHub\RMS\RMS\obj\Debug\RMS_MarkupCompile.lref
 C:\Users\kurtg\Documents\GitHub\RMS\RMS\obj\Debug\LoginWindow.baml
 C:\Users\kurtg\Documents\GitHub\RMS\RMS\obj\Debug\MainWindow.baml
+C:\Users\kurtg\Documents\GitHub\RMS\RMS\obj\Debug\MenuWindow.baml
 C:\Users\kurtg\Documents\GitHub\RMS\RMS\obj\Debug\PWWindow.baml
 C:\Users\kurtg\Documents\GitHub\RMS\RMS\obj\Debug\EditInfoWindow.baml
 C:\Users\kurtg\Documents\GitHub\RMS\RMS\obj\Debug\ReportWindow.baml

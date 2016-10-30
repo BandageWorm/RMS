@@ -1,16 +1,5 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows;
-using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
-using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Shapes;
 using MySql.Data.MySqlClient;
 
 namespace RMS
@@ -25,8 +14,9 @@ namespace RMS
         public PWWindow(string act)
         {
             account = act;
+            try { con.Open(); }
+            catch (MySqlException ex) { MessageBox.Show(ex.Message); this.Close(); }
             InitializeComponent();
-            con.Open();
         }
 
         private void btOK_Click(object sender, RoutedEventArgs e)

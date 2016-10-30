@@ -45,7 +45,7 @@
             </TextBox.Style>
         </TextBox>
         <Button x:Name="btDelete" Content="Delete" HorizontalAlignment="Left" Margin="260,10,0,0" Grid.Row="1" VerticalAlignment="Top" Width="100" BorderThickness="2" FontFamily="Rockwell" Height="25" Click="btDelete_Click"/>
-        <TextBlock x:Name="tbkHint" HorizontalAlignment="Left" Margin="20,45.4,0,0" TextWrapping="Wrap" Text="If you want to add new person, please fill info below:" FontSize="17" VerticalAlignment="Top" Grid.Row="1" FontFamily="Bodoni MT"/>
+        <TextBlock x:Name="tbkHint" HorizontalAlignment="Left" Margin="20,45.4,0,0" TextWrapping="Wrap" Text="FILL INFO BLOW IF YOU WANT TO ADD NEW STAFF:" FontSize="17" VerticalAlignment="Top" Grid.Row="1" FontFamily="Bodoni MT"/>
         <TextBlock x:Name="tbkHint_Copy" HorizontalAlignment="Left" Margin="20,80.4,0,0" TextWrapping="Wrap" Text="Name" FontSize="17" VerticalAlignment="Top" Grid.Row="1" FontFamily="Bodoni MT"/>
         <TextBlock x:Name="tbkHint_Copy1" HorizontalAlignment="Left" Margin="20,110.4,0,0" TextWrapping="Wrap" Text="Age" FontSize="17" VerticalAlignment="Top" Grid.Row="1" FontFamily="Bodoni MT"/>
         <TextBlock x:Name="tbkHint_Copy2" HorizontalAlignment="Left" Margin="185,80.4,0,0" TextWrapping="Wrap" Text="Password" FontSize="17" VerticalAlignment="Top" Grid.Row="1" FontFamily="Bodoni MT"/>

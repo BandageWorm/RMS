@@ -1,0 +1,108 @@
+﻿<Window x:Class="RMS.MenuWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:RMS"
+        mc:Ignorable="d"
+        Title="MenuWindow" Height="600" Width="800" ResizeMode="CanMinimize" WindowStartupLocation="CenterScreen">
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="2*"/>
+            <RowDefinition Height="180"/>
+        </Grid.RowDefinitions>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="500"/>
+            <ColumnDefinition Width="300"/>
+        </Grid.ColumnDefinitions>
+        <DataGrid x:Name="dgItem" Margin="20,30,10,0" AutoGenerateColumns="False">
+            <DataGrid.Columns>
+                <DataGridTextColumn Width="40" Header="ID" Binding="{Binding item_id}"/>
+                <DataGridTextColumn Width="80" Header="Item" Binding="{Binding item_name}"/>
+                <DataGridTextColumn Width="40" Header="QC" Binding="{Binding item_code}"/>
+                <DataGridTextColumn Width="60" Header="Price" Binding="{Binding price}"/>
+                <DataGridTextColumn Width="80" Header="Category" Binding="{Binding category}"/>
+                <DataGridTextColumn Width="160" Header="Info" Binding="{Binding item_info}"/>
+            </DataGrid.Columns>
+        </DataGrid>
+        <DataGrid x:Name="dgCategory" Margin="10,30,30,0" AutoGenerateColumns="False" Width="260" Grid.Column="1">
+            <DataGrid.Columns>
+                <DataGridTextColumn Width="40" Header="ID" Binding="{Binding category_id}"/>
+                <DataGridTextColumn Width="80" Header="Category" Binding="{Binding category}"/>
+                <DataGridTextColumn Width="130" Header="Info" Binding="{Binding category_info}"/>
+            </DataGrid.Columns>
+        </DataGrid>
+        <TextBlock x:Name="tbkItem" HorizontalAlignment="Left" Margin="20,5,0,0" TextWrapping="Wrap" Text="MENU ITEM" FontSize="17" VerticalAlignment="Top" Height="20" FontFamily="Bodoni MT"/>
+        <TextBlock x:Name="tbkCatogory" HorizontalAlignment="Left" Margin="10,5,0,0" TextWrapping="Wrap" Text="MENU CATEGORY" FontSize="17" VerticalAlignment="Top" Height="20" FontFamily="Bodoni MT" Grid.Column="1"/>
+        <TextBox x:Name="tbItem" Height="25" Margin="320,10,80,145" Grid.Row="1" TextWrapping="Wrap" Width="100">
+            <TextBox.Resources>
+                <VisualBrush x:Key="HelpBrush" TileMode="None" Opacity="0.3" Stretch="None" AlignmentX="Left">
+                    <VisualBrush.Visual>
+                        <TextBlock FontStyle="Italic" Text="Item ID"/>
+                    </VisualBrush.Visual>
+                </VisualBrush>
+            </TextBox.Resources>
+            <TextBox.Style>
+                <Style TargetType="{x:Type TextBox}">
+                    <Style.Triggers>
+                        <Trigger Property="Text" Value="{x:Null}">
+                            <Setter Property="Background" Value="{StaticResource HelpBrush}"/>
+                        </Trigger>
+                        <Trigger Property="Text" Value="">
+                            <Setter Property="Background" Value="{StaticResource HelpBrush}"/>
+                        </Trigger>
+                    </Style.Triggers>
+                </Style>
+            </TextBox.Style>
+        </TextBox>
+        <TextBox x:Name="tbCategoryID" Height="25" Margin="100,10,100,145" Grid.Row="1" TextWrapping="Wrap" Width="100" Grid.Column="1">
+            <TextBox.Resources>
+                <VisualBrush x:Key="HelpBrush" TileMode="None" Opacity="0.3" Stretch="None" AlignmentX="Left">
+                    <VisualBrush.Visual>
+                        <TextBlock FontStyle="Italic" Text="Category ID"/>
+                    </VisualBrush.Visual>
+                </VisualBrush>
+            </TextBox.Resources>
+            <TextBox.Style>
+                <Style TargetType="{x:Type TextBox}">
+                    <Style.Triggers>
+                        <Trigger Property="Text" Value="{x:Null}">
+                            <Setter Property="Background" Value="{StaticResource HelpBrush}"/>
+                        </Trigger>
+                        <Trigger Property="Text" Value="">
+                            <Setter Property="Background" Value="{StaticResource HelpBrush}"/>
+                        </Trigger>
+                    </Style.Triggers>
+                </Style>
+            </TextBox.Style>
+        </TextBox>
+        <Button x:Name="btDeleteItem" Content="Delete" Margin="430,10,10,145" Grid.Row="1" Width="60" BorderThickness="2" FontFamily="Rockwell" Height="25" Click="btDeleteItem_Click"/>
+        <Button x:Name="btDeleteCategory" Content="Delete" Margin="210,10,30,145" Grid.Row="1" Width="60" BorderThickness="2" FontFamily="Rockwell" Height="25" Grid.Column="1" Click="btDeleteCategory_Click"/>
+        <TabControl x:Name="tabControl" Margin="20,10,30,30" Grid.Row="1" Grid.ColumnSpan="2" Panel.ZIndex="-1">
+            <TabItem Header="Item" Height="30" Margin="-2,0,-1.6,0.4">
+                <Grid>
+                    <TextBlock x:Name="tbkItem_Copy" HorizontalAlignment="Left" Margin="20,20,0,0" TextWrapping="Wrap" Text="NAME" FontSize="17" VerticalAlignment="Top" Height="20" FontFamily="Bodoni MT"/>
+                    <TextBlock x:Name="tbkItem_Copy1" HorizontalAlignment="Left" Margin="265,20,0,0" TextWrapping="Wrap" Text="QC" FontSize="17" VerticalAlignment="Top" Height="20" FontFamily="Bodoni MT"/>
+                    <TextBlock x:Name="tbkItem_Copy2" HorizontalAlignment="Left" Margin="375,20,0,0" TextWrapping="Wrap" Text="PRICE" FontSize="17" VerticalAlignment="Top" Height="20" FontFamily="Bodoni MT"/>
+                    <TextBlock x:Name="tbkItem_Copy3" HorizontalAlignment="Left" Margin="510,20,0,0" TextWrapping="Wrap" Text="CATEGORY ID" FontSize="17" VerticalAlignment="Top" Height="20" FontFamily="Bodoni MT"/>
+                    <TextBox x:Name="tbItemName" Height="20" Margin="80,20,0,0" TextWrapping="Wrap" VerticalAlignment="Top" HorizontalAlignment="Left" Width="150" />
+                    <TextBox x:Name="tbItemQC" Height="20" Margin="295,20,0,0" TextWrapping="Wrap" VerticalAlignment="Top" HorizontalAlignment="Left" Width="50" />
+                    <TextBox x:Name="tbItemCategory" Height="20" Margin="635,20,0,0" TextWrapping="Wrap" VerticalAlignment="Top" HorizontalAlignment="Left" Width="80" />
+                    <TextBox x:Name="tbItemPrice" Height="20" Margin="435,20,0,0" TextWrapping="Wrap" VerticalAlignment="Top" HorizontalAlignment="Left" Width="50" />
+                    <TextBlock x:Name="tbkItem_Copy4" HorizontalAlignment="Left" Margin="20,60,0,0" TextWrapping="Wrap" Text="INFO" FontSize="17" VerticalAlignment="Top" Height="20" FontFamily="Bodoni MT"/>
+                    <TextBox x:Name="tbItemInfo" Height="20" Margin="80,60,0,0" TextWrapping="Wrap" VerticalAlignment="Top" HorizontalAlignment="Left" Width="550" />
+                    <Button x:Name="btAddItem" Content="Add" HorizontalAlignment="Right" Margin="0,60,30,0" VerticalAlignment="Top" Width="60" BorderThickness="2" FontFamily="Rockwell" Height="20" Click="btAddItem_Click"/>
+                </Grid>
+            </TabItem>
+            <TabItem Header="Category">
+                <Grid>
+                    <TextBlock x:Name="tbkItem_Copy5" HorizontalAlignment="Left" Margin="20,20,0,0" TextWrapping="Wrap" Text="CATEGORY" FontSize="17" VerticalAlignment="Top" Height="20" FontFamily="Bodoni MT"/>
+                    <TextBlock x:Name="tbkItem_Copy6" HorizontalAlignment="Left" Margin="20,60,0,0" TextWrapping="Wrap" Text="CATEGORY INFO" FontSize="17" VerticalAlignment="Top" Height="20" FontFamily="Bodoni MT"/>
+                    <Button x:Name="btAddCategory" Content="Add" HorizontalAlignment="Right" Margin="0,60,50,0" VerticalAlignment="Top" Width="60" BorderThickness="2" FontFamily="Rockwell" Height="20" Click="btAddCategory_Click"/>
+                    <TextBox x:Name="tbCategoryInfo" Height="20" Margin="180,60,0,0" TextWrapping="Wrap" VerticalAlignment="Top" HorizontalAlignment="Left" Width="430" />
+                    <TextBox x:Name="tbCategory" Height="20" Margin="180,20,0,0" TextWrapping="Wrap" VerticalAlignment="Top" HorizontalAlignment="Left" Width="180" />
+                </Grid>
+            </TabItem>
+        </TabControl>
+    </Grid>
+</Window>

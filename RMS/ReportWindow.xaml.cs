@@ -1,17 +1,6 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Data;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows;
-using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
-using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Shapes;
 using MySql.Data.MySqlClient;
 
 namespace RMS
@@ -32,7 +21,8 @@ namespace RMS
             if (type == "daily") { scale = "date_format(order_time,'%Y-%m-%d')='" + timeScale + "'"; }
             else if (type == "monthly") { scale = "date_format(order_time,'%Y-%m')='" + timeScale + "'"; }
             else { scale = "date_format(order_time,'%Y')='" + timeScale + "'"; }
-            con.Open();
+            try { con.Open(); }
+            catch (MySqlException ex) { MessageBox.Show(ex.Message); this.Close(); }
             InitializeComponent();
             showOrderNumber();
             dgBill.ItemsSource = showBill().DefaultView;

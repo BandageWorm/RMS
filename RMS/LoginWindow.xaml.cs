@@ -1,19 +1,6 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows;
-using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
-using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Shapes;
 using MySql.Data.MySqlClient;
-using MySql.Data;
-using System.Data;
 
 namespace RMS
 {
@@ -43,8 +30,8 @@ namespace RMS
             cmd.CommandText = ("select account from staff where account='"+tbAccount.Text+"' and password='"+password+"'");
             if (cmd.ExecuteScalar()!=null)
             {
-                //MainWindow mWindow = new MainWindow((string)cmd.ExecuteScalar());
-                //mWindow.Show();
+                MainWindow mWindow = new MainWindow((string)cmd.ExecuteScalar());
+                mWindow.Show();
                 this.Close(); 
             }
             else
