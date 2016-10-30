@@ -282,6 +282,12 @@ namespace RMS
             if(currentOrderNo != null) dgOrder.ItemsSource = showOrder(currentOrderNo).DefaultView;
         }
 
+        private void btEditUser_Click(object sender, RoutedEventArgs e)
+        {
+            StaffWindow staffEdit = new StaffWindow();
+            staffEdit.Show();
+        }
+
         //日月年报告
     }
 }
