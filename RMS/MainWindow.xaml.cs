@@ -231,6 +231,30 @@ namespace RMS
             return dt;
         }
 
+        public DataTable showBill(string startDate,string endDate)
+        {
+            DataTable dt = new DataTable();
+            string sql = "select c.order_no,staff_name,bill,actual_payment,table_no,order_time from" +
+            "(select * from `order` inner join staff on `order`.staff_account = staff.account) c " +
+            "left join (select order_no, sum(price * quantity) as bill from order_item" +
+            " a inner join menu_item b on a.item_id = b.item_id group by order_no) d on c.order_no" +
+            " = d.order_no where order_time>='"+startDate+" 00:00:00' and order_time<= '"+endDate+
+            " 23:59:59' order by c.order_no asc";
+            try
+            {//Show DataGrid
+                DataSet ds = new DataSet();
+                MySqlDataAdapter sda = new MySqlDataAdapter(sql, con);
+                sda.Fill(ds, "order_item");
+                dt = ds.Tables["order_item"];
+            }
+            catch (MySqlException ex)
+            { MessageBox.Show(ex.Message); }
+            object sum = dt.Compute("sum(bill)", "TRUE");
+            totalBills = ((double)sum).ToString("f2");
+            tbkTotalBills.Text = this.totalBills;
+            return dt;
+        }
+
         private void btPassword_Click(object sender, RoutedEventArgs e)
         {
             PWWindow pw = new PWWindow(account);
@@ -286,6 +310,18 @@ namespace RMS
         {
             StaffWindow staffEdit = new StaffWindow();
             staffEdit.Show();
+        }
+
+        private void btsearchOrder_Click(object sender, RoutedEventArgs e)
+        {
+            string startDate = Convert.ToDateTime(dpStart.Text).ToString("yyyy-MM-dd");
+            string endDate = Convert.ToDateTime(dpEnd.Text).ToString("yyyy-MM-dd");
+            dgBill.ItemsSource = showBill(startDate,endDate).DefaultView;
+        }
+
+        private void btAllOrder_Click(object sender, RoutedEventArgs e)
+        {
+            dgBill.ItemsSource = showBill().DefaultView;
         }
 
         //日月年报告
