@@ -125,7 +125,7 @@ namespace RMS
                 //Show Bill
                 cmd.CommandText = sqlbill;
                 cmd.Connection = con;
-                if (cmd.ExecuteScalar() == DBNull.Value) totalBill = "0.00";
+                if (cmd.ExecuteScalar() == DBNull.Value) { MessageBox.Show("Order Number does not exist!"); return null; }
                 else totalBill = (string)cmd.ExecuteScalar();
                 tbkTotalBill.Text = this.totalBill;
                 //Show Order No
@@ -200,7 +200,7 @@ namespace RMS
         {
             string orderNo = tbShowOrder.Text;
             if (orderNo == "") { MessageBox.Show("Please input order number!"); return; }
-            dgOrder.ItemsSource = showOrder(orderNo).DefaultView;
+            if(showOrder(orderNo)!=null) dgOrder.ItemsSource = showOrder(orderNo).DefaultView;
         }
 
         public DataTable showBill()
@@ -221,7 +221,8 @@ namespace RMS
             catch (MySqlException ex)
             { MessageBox.Show(ex.Message); }
             object sum = dt.Compute("sum(bill)", "TRUE");
-            totalBills = ((double)sum).ToString("f2");
+            if (!Convert.IsDBNull(sum)) totalBills = ((double)sum).ToString("f2");
+            else totalBills = "";
             tbkTotalBills.Text = this.totalBills;
             return dt;
         }
@@ -236,6 +237,9 @@ namespace RMS
             on c.order_no = d.order_no where table_no = "+table+" order by c.order_no asc";
             try
             {//Show DataGrid
+                cmd.Connection = con;
+                cmd.CommandText = "select table_no from `table` where table_no='" + table + "'";
+                if(cmd.ExecuteScalar() == null) { MessageBox.Show("Table does not exist!"); return null; }
                 DataSet ds = new DataSet();
                 MySqlDataAdapter sda = new MySqlDataAdapter(sql, con);
                 sda.Fill(ds, "order_item");
@@ -244,7 +248,8 @@ namespace RMS
             catch (MySqlException ex)
             { MessageBox.Show(ex.Message); }
             object sum = dt.Compute("sum(bill)", "TRUE");
-            totalBills = ((double)sum).ToString("f2");
+            if (!Convert.IsDBNull(sum)) totalBills = ((double)sum).ToString("f2");
+            else totalBills = "";
             tbkTotalBills.Text = this.totalBills;
             return dt;
         }
@@ -269,11 +274,9 @@ namespace RMS
             catch (MySqlException ex)
             { MessageBox.Show(ex.Message); }
             object sum = dt.Compute("sum(bill)", "TRUE");
-            if (object.Equals(sum,null))
-            {
-                totalBills = ((double)sum).ToString("f2");
-                tbkTotalBills.Text = this.totalBills;
-            }
+            if (!Convert.IsDBNull(sum)) totalBills = ((double)sum).ToString("f2");
+            else totalBills = "";
+            tbkTotalBills.Text = this.totalBills;
             return dt;
         }
 
@@ -322,7 +325,7 @@ namespace RMS
         {//search order by table no
             string table = this.tbOrderTable.Text;
             if (table == "") dgBill.ItemsSource = showBill(today, today).DefaultView;
-            else dgBill.ItemsSource = showBill(table).DefaultView;
+            else if(showBill(table) != null) dgBill.ItemsSource = showBill(table).DefaultView;
         }
 
         private void tbkCurOrder_MouseEnter(object sender, MouseEventArgs e)

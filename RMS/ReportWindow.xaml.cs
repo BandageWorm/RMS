@@ -48,10 +48,12 @@ namespace RMS
             catch (MySqlException ex)
             { MessageBox.Show(ex.Message); }
             object sum = dt.Compute("sum(bill)", "TRUE");
-            totalIncome = ((double)sum).ToString("f2");
+            if (!Convert.IsDBNull(sum)) totalIncome = ((double)sum).ToString("f2");
+            else totalIncome = "0.00";
             tbkTotalIncome.Text = this.totalIncome;
             sum = dt.Compute("sum(actual_payment)", "TRUE");
-            totalPay = ((double)sum).ToString("f2");
+            if (!Convert.IsDBNull(sum)) totalPay = ((double)sum).ToString("f2");
+            else totalPay = "0.00";
             tbkTotalPay.Text = this.totalPay;
             return dt;
         }

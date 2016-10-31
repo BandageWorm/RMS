@@ -39,7 +39,7 @@
         <TextBlock x:Name="tbkOrder_Copy2" HorizontalAlignment="Left" Margin="239,20.2,0,0" TextWrapping="Wrap" Text="TOTAL INCOME:" FontSize="17" VerticalAlignment="Top" Height="20" FontFamily="Bodoni MT" Width="152" Grid.Row="1"/>
         <TextBlock x:Name="tbkTotalOrder" Margin="174,20.4,0,0" TextWrapping="Wrap" Text="{Binding totalOrder}" FontSize="17" VerticalAlignment="Top" FontFamily="Bodoni MT" HorizontalAlignment="Left" Height="20" Grid.Row="1"/>
         <TextBlock x:Name="tbkTotalIncome" HorizontalAlignment="Left" Margin="380,20.2,0,0" Grid.Row="1" TextWrapping="Wrap" Text="{Binding Path=totalIncome}" VerticalAlignment="Top" FontFamily="Bodoni MT" FontSize="17" Height="20"/>
-        <Button x:Name="btOK" Content="OK" HorizontalAlignment="Center" Margin="140,19.2,73.6,0" Grid.Row="1" VerticalAlignment="Top" Width="84" BorderThickness="2" FontFamily="Rockwell" Height="25" Grid.Column="1" Click="btOK_Click"/>
+        <Button x:Name="btOK" Content="OK" Margin="134,15.2,79.6,0" Grid.Row="1" VerticalAlignment="Top" BorderThickness="2" FontFamily="Rockwell" Height="25" Grid.Column="1" Click="btOK_Click"/>
         <TextBlock x:Name="tbkOrder_Copy3" HorizontalAlignment="Left" Margin="485,20.2,0,0" TextWrapping="Wrap" Text="TOTAL PAY:" FontSize="17" VerticalAlignment="Top" Height="20" FontFamily="Bodoni MT" Width="104" Grid.Row="1"/>
         <TextBlock x:Name="tbkTotalPay" HorizontalAlignment="Left" Margin="0,20.2,0,0" Grid.Row="1" TextWrapping="Wrap" Text="{Binding totalPay}" VerticalAlignment="Top" FontFamily="Bodoni MT" FontSize="17" Height="20" Grid.Column="1"/>
 

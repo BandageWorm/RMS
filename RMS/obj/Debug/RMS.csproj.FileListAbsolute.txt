@@ -67,4 +67,3 @@ C:\Users\kurtg\Documents\GitHub\RMS\RMS\obj\Debug\RMS.Properties.Resources.resou
 C:\Users\kurtg\Documents\GitHub\RMS\RMS\obj\Debug\RMS.csproj.GenerateResource.Cache
 C:\Users\kurtg\Documents\GitHub\RMS\RMS\obj\Debug\RMS.exe
 C:\Users\kurtg\Documents\GitHub\RMS\RMS\obj\Debug\RMS.pdb
-C:\Users\kurtg\Documents\GitHub\RMS\RMS\obj\Debug\RMS.csprojResolveAssemblyReference.cache
