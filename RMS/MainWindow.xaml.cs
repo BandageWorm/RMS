@@ -31,7 +31,11 @@ namespace RMS
             try { con.Open(); }
             catch (MySqlException ex) { MessageBox.Show(ex.Message); this.Close(); }
             InitializeComponent();
-            if (isManager) { btEditUser.Visibility = Visibility.Visible; btEditMenu.Visibility = Visibility.Visible; }
+            if (isManager) {
+                btEditUser.Visibility = Visibility.Visible;
+                btEditMenu.Visibility = Visibility.Visible;
+                imgSmile.Visibility = Visibility.Hidden;
+            }
             getName();
             tbkaccount.Text = this.name;
             dgBill.ItemsSource = showBill(today,today).DefaultView;

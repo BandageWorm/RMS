@@ -149,7 +149,13 @@
     <Resource Include="ico\bg.jpg" />
   </ItemGroup>
   <ItemGroup>
+    <Resource Include="ooopic_1477917389.ico" />
+  </ItemGroup>
+  <ItemGroup>
     <Resource Include="icon.ico" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="smile.png" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
