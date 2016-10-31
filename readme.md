@@ -1,3 +1,14 @@
-数据库为MySQL：用户名：root，密码：root。
+Need to connect local MySQL server
+{
+	User = root
+	Password = root
+	Host = localhost
+	Charset = uft-8
+	Test SQL database = "\demo.sql"
+}
 
-数据库demo已加入，名称"RMS"。
+Attention: 
+Button "Bills" will show today's bills (as default) if the "Table NO" left blank.
+
+Test Manager account:account = M00001,password = 123
+
