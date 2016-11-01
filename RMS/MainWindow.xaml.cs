@@ -95,8 +95,8 @@ namespace RMS
             try
             {
                 cmd.Connection = con;
-                cmd.CommandText = @"insert into `order` (staff_account,actual_payment,total_bill,table_no) 
-                                values('" + account + "',0,0," + table + ")" ;
+                cmd.CommandText = @"insert into `order` (staff_account,actual_payment,table_no) 
+                                values('" + account + "',0," + table + ")" ;
                 if (cmd.ExecuteNonQuery() == 1)
                 {
                     cmd.CommandText = "select order_no,order_time from `order` order by order_time desc";
@@ -217,11 +217,10 @@ namespace RMS
         public DataTable showBill()
         {
             DataTable dt = new DataTable();
-            string sql = @"select concat(c.order_no) as order_no,staff_name,bill,actual_payment,format(actual_payment-bill,2) as `change`,
-            table_no,order_time from (select * from `order` inner join staff on `order`.staff_account 
-            = staff.account) c left join (select order_no, sum(total_price) as bill from 
-            order_item a inner join menu_item b on a.item_id = b.item_id group by order_no) d on 
-            c.order_no = d.order_no order by c.order_no asc";
+            string sql = @"select concat(order_no) as order_no,staff_name,bill,actual_payment,
+            format(actual_payment-bill,2) as `change`,table_no,order_time from (select *,
+            sum(total_price) as bill from `order` natural join order_item group by order_no) o
+            left join staff s on o.staff_account=s.account order by order_no desc";
             try
             {//Show DataGrid
                 DataSet ds = new DataSet();
@@ -241,11 +240,11 @@ namespace RMS
         public DataTable showBill(string table)
         {
             DataTable dt = new DataTable();
-            string sql = @"select concat(c.order_no) as order_no,staff_name,bill,actual_payment,format(actual_payment-bill,2) as `change`,
-            table_no,order_time from (select * from `order` inner join staff on `order`.staff_account 
-            = staff.account) c left join (select order_no, sum(total_price) as bill from 
-            order_item a inner join menu_item b on a.item_id = b.item_id group by order_no) d 
-            on c.order_no = d.order_no where table_no = "+table+" order by c.order_no asc";
+            string sql = @"select concat(order_no) as order_no,staff_name,bill,actual_payment,
+            format(actual_payment-bill,2) as `change`,table_no,order_time from (select *,
+            sum(total_price) as bill from `order` natural join order_item group by order_no) o
+            left join staff s on o.staff_account=s.account where table_no = " + table + 
+            " order by order_no desc";
             try
             {//Show DataGrid
                 cmd.Connection = con;
@@ -268,13 +267,11 @@ namespace RMS
         public DataTable showBill(string startDate,string endDate)
         {
             DataTable dt = new DataTable();
-            string sql = @"select concat(c.order_no) as order_no,staff_name,bill,actual_payment,
-            format(actual_payment-bill,2) as `change`,table_no,order_time from (select * from 
-            `order` inner join staff on `order`.staff_account = staff.account) c left join 
-            (select order_no, sum(total_price) as bill from order_item a inner join menu_item
-            b on a.item_id = b.item_id group by order_no) d on c.order_no = d.order_no where 
-            date_format(order_time,'%Y-%m-%d')>='" + startDate+ 
-            "' and date_format(order_time,'%Y-%m-%d')<='" + endDate+"' order by c.order_no asc";
+            string sql = @"select concat(order_no) as order_no,staff_name,bill,actual_payment,
+            format(actual_payment-bill,2) as `change`,table_no,order_time from (select *,
+            sum(total_price) as bill from `order` natural join order_item group by order_no) o
+            left join staff s on o.staff_account=s.account where date_format(order_time,'%Y-%m-%d')>='"
+            + startDate+ "' and date_format(order_time,'%Y-%m-%d')<='" + endDate+"' order by order_no asc";
             try
             {//Show DataGrid
                 DataSet ds = new DataSet();
