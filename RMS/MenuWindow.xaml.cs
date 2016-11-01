@@ -79,6 +79,7 @@ namespace RMS
             }
             catch (MySqlException ex) { MessageBox.Show(ex.Message); }
             dgCategory.ItemsSource = showCategory().DefaultView;
+            dgItem.ItemsSource = showItem().DefaultView;
         }
 
         private void btAddItem_Click(object sender, RoutedEventArgs e)

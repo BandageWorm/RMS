@@ -68,3 +68,13 @@ C:\Users\kurtg\Documents\GitHub\RMS\RMS\obj\Debug\RMS.csproj.GenerateResource.Ca
 C:\Users\kurtg\Documents\GitHub\RMS\RMS\obj\Debug\RMS.exe
 C:\Users\kurtg\Documents\GitHub\RMS\RMS\obj\Debug\RMS.pdb
 C:\Users\kurtg\Documents\GitHub\RMS\RMS\obj\Debug\RMS.csprojResolveAssemblyReference.cache
+F:\VS Project\RMS\RMS\obj\Debug\MenuWindow.g.cs
+F:\VS Project\RMS\RMS\obj\Debug\PWWindow.g.cs
+F:\VS Project\RMS\RMS\obj\Debug\EditInfoWindow.g.cs
+F:\VS Project\RMS\RMS\obj\Debug\ReportWindow.g.cs
+F:\VS Project\RMS\RMS\obj\Debug\StaffWindow.g.cs
+F:\VS Project\RMS\RMS\obj\Debug\MenuWindow.baml
+F:\VS Project\RMS\RMS\obj\Debug\PWWindow.baml
+F:\VS Project\RMS\RMS\obj\Debug\EditInfoWindow.baml
+F:\VS Project\RMS\RMS\obj\Debug\ReportWindow.baml
+F:\VS Project\RMS\RMS\obj\Debug\StaffWindow.baml

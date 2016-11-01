@@ -61,7 +61,7 @@ namespace RMS
                     on a.category_id=b.category_id where item_code='" + keyword + "'";
             else
                 sql = @"select * from menu_item a inner join menu_category b 
-                    on a.category_id=b.category_id where item_id=" + keyword;
+                    on a.category_id=b.category_id where item_id='" + keyword +"'";
             try
             {
                 DataSet ds = new DataSet();
