@@ -2,7 +2,7 @@ CREATE DATABASE  IF NOT EXISTS `rms` /*!40100 DEFAULT CHARACTER SET utf8 */;
 USE `rms`;
 -- MySQL dump 10.13  Distrib 5.7.12, for Win64 (x86_64)
 --
--- Host: localhost    Database: rms
+-- Host: 127.0.0.1    Database: rms
 -- ------------------------------------------------------
 -- Server version	5.7.15-log
 
@@ -38,7 +38,7 @@ CREATE TABLE `menu_category` (
 
 LOCK TABLES `menu_category` WRITE;
 /*!40000 ALTER TABLE `menu_category` DISABLE KEYS */;
-INSERT INTO `menu_category` VALUES (1,'Basic','Basic food'),(2,'Dish','Plate Dish'),(3,'Barbeque','Barbeque'),(4,'Soft Drink','Baverage'),(5,'Alchohol',NULL);
+INSERT INTO `menu_category` VALUES (1,'Main Course','Chinese style'),(2,'Side dishes','Hong Kong style'),(3,'Drinks','Soft drinks'),(4,'Dessert','Cakes'),(5,'Wine','XO');
 /*!40000 ALTER TABLE `menu_category` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -55,11 +55,11 @@ CREATE TABLE `menu_item` (
   `price` double NOT NULL,
   `item_code` varchar(10) NOT NULL,
   `item_info` varchar(100) DEFAULT NULL,
-  `category_id` int(10) unsigned NOT NULL,
-  PRIMARY KEY (`item_id`,`category_id`),
+  `category_id` int(10) unsigned DEFAULT NULL,
+  PRIMARY KEY (`item_id`),
   KEY `fk_menu_item_menu_category_idx` (`category_id`),
   CONSTRAINT `fk_menu_item_menu_category` FOREIGN KEY (`category_id`) REFERENCES `menu_category` (`category_id`) ON DELETE CASCADE ON UPDATE CASCADE
-) ENGINE=InnoDB AUTO_INCREMENT=8 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=9 DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -68,7 +68,7 @@ CREATE TABLE `menu_item` (
 
 LOCK TABLES `menu_item` WRITE;
 /*!40000 ALTER TABLE `menu_item` DISABLE KEYS */;
-INSERT INTO `menu_item` VALUES (1,'Rice',1.99,'R','Bowl of rice',1),(2,'Noodle',2.99,'N','Yangchun noodle',1),(3,'Coke',4.5,'C','Tin',4),(4,'Tomato Egg',11.99,'TE','',2),(5,'Mao Tai',369.99,'MT','Authentic',5),(6,'Lamb Chuan',3.99,'LC','Xingjiang Style',3),(7,'Potato Chuan',1.99,'PC','Sliced Potato',3);
+INSERT INTO `menu_item` VALUES (1,'Rice',1.99,'R','2 bowls will kill you',1),(2,'Noodle',3.99,'N','Very long',1),(3,'Chicken wings',14.99,'CW','Can fly',2),(4,'Egg',5.99,'E','Supplement protein',2),(5,'Coke',1.99,'C','CO2',3),(6,'Sprite',1.99,'S','CO2',3);
 /*!40000 ALTER TABLE `menu_item` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -83,14 +83,14 @@ CREATE TABLE `order` (
   `order_no` int(6) unsigned zerofill NOT NULL AUTO_INCREMENT,
   `order_time` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
   `actual_payment` double NOT NULL,
-  `staff_account` varchar(10) NOT NULL,
+  `staff_account` varchar(10) DEFAULT NULL,
   `table_no` int(10) unsigned NOT NULL,
   PRIMARY KEY (`order_no`),
   KEY `fk_order_staff1_idx` (`staff_account`),
   KEY `fk_order_table1_idx` (`table_no`),
   CONSTRAINT `fk_order_staff1` FOREIGN KEY (`staff_account`) REFERENCES `staff` (`account`) ON DELETE NO ACTION ON UPDATE NO ACTION,
   CONSTRAINT `fk_order_table1` FOREIGN KEY (`table_no`) REFERENCES `table` (`table_no`) ON DELETE NO ACTION ON UPDATE NO ACTION
-) ENGINE=InnoDB AUTO_INCREMENT=10 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -99,6 +99,7 @@ CREATE TABLE `order` (
 
 LOCK TABLES `order` WRITE;
 /*!40000 ALTER TABLE `order` DISABLE KEYS */;
+INSERT INTO `order` VALUES (000001,'2016-11-01 11:36:47',110,'tony',1),(000002,'2016-11-01 11:36:50',0,'tony',2),(000003,'2016-11-01 11:36:52',0,'tony',3),(000004,'2016-11-01 11:46:55',0,'tony',4);
 /*!40000 ALTER TABLE `order` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -111,15 +112,15 @@ DROP TABLE IF EXISTS `order_item`;
 /*!40101 SET character_set_client = utf8 */;
 CREATE TABLE `order_item` (
   `quantity` int(10) unsigned NOT NULL,
-  `item_id` int(10) unsigned NOT NULL,
-  `category_id` int(10) unsigned NOT NULL,
-  `order_no` int(6) unsigned zerofill NOT NULL,
-  PRIMARY KEY (`item_id`,`category_id`,`order_no`),
-  KEY `fk_order_item_menu_item1_idx` (`item_id`,`category_id`),
+  `item_id` int(10) unsigned DEFAULT NULL,
+  `order_no` int(6) unsigned zerofill DEFAULT NULL,
+  `order_item_id` int(10) unsigned NOT NULL AUTO_INCREMENT,
+  PRIMARY KEY (`order_item_id`),
+  KEY `fk_order_item_menu_item1_idx` (`item_id`),
   KEY `fk_order_item_order1_idx` (`order_no`),
-  CONSTRAINT `fk_order_item_menu_item1` FOREIGN KEY (`item_id`, `category_id`) REFERENCES `menu_item` (`item_id`, `category_id`) ON DELETE NO ACTION ON UPDATE NO ACTION,
-  CONSTRAINT `fk_order_item_order1` FOREIGN KEY (`order_no`) REFERENCES `order` (`order_no`) ON DELETE NO ACTION ON UPDATE NO ACTION
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+  CONSTRAINT `fk_order_item_menu_item1` FOREIGN KEY (`item_id`) REFERENCES `menu_item` (`item_id`) ON DELETE SET NULL ON UPDATE NO ACTION,
+  CONSTRAINT `fk_order_item_order1` FOREIGN KEY (`order_no`) REFERENCES `order` (`order_no`) ON DELETE SET NULL ON UPDATE NO ACTION
+) ENGINE=InnoDB AUTO_INCREMENT=9 DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -128,6 +129,7 @@ CREATE TABLE `order_item` (
 
 LOCK TABLES `order_item` WRITE;
 /*!40000 ALTER TABLE `order_item` DISABLE KEYS */;
+INSERT INTO `order_item` VALUES (2,1,000001,1),(2,2,000001,2),(2,4,000001,5),(2,3,000001,6),(2,3,000001,7),(2,NULL,000001,8);
 /*!40000 ALTER TABLE `order_item` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -158,7 +160,7 @@ CREATE TABLE `staff` (
 
 LOCK TABLES `staff` WRITE;
 /*!40000 ALTER TABLE `staff` DISABLE KEYS */;
-INSERT INTO `staff` VALUES ('M00001','123456','Ken Tompson',43,'15238492043','Manager',NULL),('W00001','654321','Jim Parsons',26,'18234013874','Waiter','M00001'),('W00002','654321','Gary Herington',24,'18843842104','Waiter','M00001');
+INSERT INTO `staff` VALUES ('tony','123','liuzhaozhi',23,'32131','Manager',NULL);
 /*!40000 ALTER TABLE `staff` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -182,7 +184,7 @@ CREATE TABLE `table` (
 
 LOCK TABLES `table` WRITE;
 /*!40000 ALTER TABLE `table` DISABLE KEYS */;
-INSERT INTO `table` VALUES (1,'4-Person Table'),(2,'4-Person Table'),(3,'4-Person Table'),(4,'4-Person Table'),(5,'8-Person Table'),(6,'8-Person Table'),(7,'8-Person Table');
+INSERT INTO `table` VALUES (1,'2 seats'),(2,'3 seats'),(3,'2 seats'),(4,'2 seats'),(5,'2 seats'),(6,'3 seats'),(7,'3 seats'),(8,'3 seats');
 /*!40000 ALTER TABLE `table` ENABLE KEYS */;
 UNLOCK TABLES;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
@@ -195,4 +197,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2016-10-28  0:51:30
+-- Dump completed on 2016-11-01 19:59:03

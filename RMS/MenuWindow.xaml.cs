@@ -56,7 +56,7 @@ namespace RMS
         private void btDeleteItem_Click(object sender, RoutedEventArgs e)
         {
             string itemID = this.tbItem.Text;
-            if(itemID==null) { MessageBox.Show("Please input item ID!"); return; }
+            if(itemID==null||itemID=="") { MessageBox.Show("Please input item ID!"); return; }
             try
             {
                 cmd.Connection = con;
@@ -70,7 +70,7 @@ namespace RMS
         private void btDeleteCategory_Click(object sender, RoutedEventArgs e)
         {
             string categoryID = this.tbCategoryID.Text;
-            if (categoryID == null) { MessageBox.Show("Please input category ID!"); return; }
+            if (categoryID == null||categoryID=="") { MessageBox.Show("Please input category ID!"); return; }
             try
             {
                 cmd.Connection = con;

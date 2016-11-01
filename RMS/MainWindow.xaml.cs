@@ -105,7 +105,7 @@ namespace RMS
                     tbkOrder.Text = this.orderNo;
                     currentOrderNo = orderNo;
                     tbkCurOrder.Text = this.currentOrderNo;
-                    dgOrder.ItemsSource = showNewOrder(currentOrderNo).DefaultView;
+                    dgOrder.ItemsSource = showOrder(currentOrderNo).DefaultView;
                     dgBill.ItemsSource = showBill(today, today).DefaultView;
                     MessageBox.Show("Create order succeed!\n\nCurrent Order Number: " + orderNo);
                 }
@@ -134,12 +134,16 @@ namespace RMS
             {   //Show DataGrid
                 DataSet ds = new DataSet();
                 MySqlDataAdapter sda = new MySqlDataAdapter(sql, con);
+                MySqlCommand check = new MySqlCommand();
+                check.Connection = con;
+                check.CommandText = sql;
+                if(check.ExecuteScalar()==DBNull.Value) { MessageBox.Show("Order Number does not exist!"); return null; }
                 sda.Fill(ds, "order_item");
                 dt = ds.Tables["order_item"];
                 //Show Bill
                 cmd.CommandText = sqlbill;
                 cmd.Connection = con;
-                if (cmd.ExecuteScalar() == DBNull.Value) { MessageBox.Show("Order Number does not exist!"); return null; }
+                if (cmd.ExecuteScalar() == DBNull.Value) { totalBill = ""; }
                 else totalBill = (string)cmd.ExecuteScalar();
                 tbkTotalBill.Text = this.totalBill;
                 //Show Order No
@@ -151,25 +155,25 @@ namespace RMS
             return dt;
         }
 
-        public DataTable showNewOrder(string order)
-        {
-            DataTable dt = new DataTable();
-            string sql = @"select * from order_item inner join menu_item on 
-                        order_item.item_id=menu_item.item_id where order_no=" + order;
-            try
-            {   //Show DataGrid
-                DataSet ds = new DataSet();
-                MySqlDataAdapter sda = new MySqlDataAdapter(sql, con);
-                sda.Fill(ds, "order_item");
-                dt = ds.Tables["order_item"];
-                //Show Order No
-                orderNo = order.PadLeft(6, '0');
-                tbkOrder.Text = this.orderNo;
-            }
-            catch (MySqlException ex)
-            { MessageBox.Show(ex.Message); }
-            return dt;
-        }
+        //public DataTable showNewOrder(string order)
+        //{
+        //    DataTable dt = new DataTable();
+        //    string sql = @"select * from order_item inner join menu_item on 
+        //                order_item.item_id=menu_item.item_id where order_no=" + order;
+        //    try
+        //    {   //Show DataGrid
+        //        DataSet ds = new DataSet();
+        //        MySqlDataAdapter sda = new MySqlDataAdapter(sql, con);
+        //        sda.Fill(ds, "order_item");
+        //        dt = ds.Tables["order_item"];
+        //        //Show Order No
+        //        orderNo = order.PadLeft(6, '0');
+        //        tbkOrder.Text = this.orderNo;
+        //    }
+        //    catch (MySqlException ex)
+        //    { MessageBox.Show(ex.Message); }
+        //    return dt;
+        //}
 
         public void orderItem(string item, string ammount)
         {
