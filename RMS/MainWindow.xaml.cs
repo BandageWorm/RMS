@@ -4,7 +4,6 @@ using System.Windows.Controls;
 using System.Windows.Input;
 using MySql.Data.MySqlClient;
 using System.Data;
-using System.Text.RegularExpressions;
 
 namespace RMS
 {
@@ -26,12 +25,10 @@ namespace RMS
         {
             //string act = "M00001";
             account = act;
-            Regex r = new Regex(@"M\d\d\d\d\d");
-            bool isManager = r.IsMatch(account);
             try { con.Open(); }
             catch (MySqlException ex) { MessageBox.Show(ex.Message); this.Close(); }
             InitializeComponent();
-            if (isManager) {
+            if (isManager()) {
                 btEditUser.Visibility = Visibility.Visible;
                 btEditMenu.Visibility = Visibility.Visible;
                 imgSmile.Visibility = Visibility.Hidden;
@@ -50,6 +47,19 @@ namespace RMS
                 name = cmd.ExecuteScalar().ToString();
             }
             catch (MySqlException ex) { MessageBox.Show(ex.Message); }
+        }
+
+        public bool isManager()
+        {
+            try
+            {
+                cmd.Connection = con;
+                cmd.CommandText = "select role from staff where account='" + account + "'";
+                if (cmd.ExecuteScalar().ToString() == "Manager") return true;
+                else return false;
+            }
+            catch (MySqlException ex) { MessageBox.Show(ex.Message); }
+            return false;
         }
 
         public DataTable showSearch(string keyword)
@@ -95,7 +105,7 @@ namespace RMS
                     tbkOrder.Text = this.orderNo;
                     currentOrderNo = orderNo;
                     tbkCurOrder.Text = this.currentOrderNo;
-                    dgOrder.ItemsSource = showOrder(currentOrderNo).DefaultView;
+                    dgOrder.ItemsSource = showNewOrder(currentOrderNo).DefaultView;
                     dgBill.ItemsSource = showBill(today, today).DefaultView;
                     MessageBox.Show("Create order succeed!\n\nCurrent Order Number: " + orderNo);
                 }
@@ -132,6 +142,26 @@ namespace RMS
                 if (cmd.ExecuteScalar() == DBNull.Value) { MessageBox.Show("Order Number does not exist!"); return null; }
                 else totalBill = (string)cmd.ExecuteScalar();
                 tbkTotalBill.Text = this.totalBill;
+                //Show Order No
+                orderNo = order.PadLeft(6, '0');
+                tbkOrder.Text = this.orderNo;
+            }
+            catch (MySqlException ex)
+            { MessageBox.Show(ex.Message); }
+            return dt;
+        }
+
+        public DataTable showNewOrder(string order)
+        {
+            DataTable dt = new DataTable();
+            string sql = @"select * from order_item inner join menu_item on 
+                        order_item.item_id=menu_item.item_id where order_no=" + order;
+            try
+            {   //Show DataGrid
+                DataSet ds = new DataSet();
+                MySqlDataAdapter sda = new MySqlDataAdapter(sql, con);
+                sda.Fill(ds, "order_item");
+                dt = ds.Tables["order_item"];
                 //Show Order No
                 orderNo = order.PadLeft(6, '0');
                 tbkOrder.Text = this.orderNo;
