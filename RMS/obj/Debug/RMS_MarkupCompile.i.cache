@@ -4,15 +4,15 @@
 winexe
 C#
 .cs
-F:\VS Project\RMS\RMS\obj\Debug\
+C:\Users\kurtg\Documents\GitHub\RMS\RMS\obj\Debug\
 RMS
 none
 false
 DEBUG;TRACE
-F:\VS Project\RMS\RMS\App.xaml
+C:\Users\kurtg\Documents\GitHub\RMS\RMS\App.xaml
 7-414747511
 
-15-760298227
+151398048341
 14-37733517
 LoginWindow.xaml;MainWindow.xaml;MenuWindow.xaml;PWWindow.xaml;EditInfoWindow.xaml;ReportWindow.xaml;StaffWindow.xaml;
 

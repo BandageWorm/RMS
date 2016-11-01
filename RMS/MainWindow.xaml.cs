@@ -95,8 +95,8 @@ namespace RMS
             try
             {
                 cmd.Connection = con;
-                cmd.CommandText = @"insert into `order` (staff_account,actual_payment,table_no) 
-                                values('" + account + "',0," + table + ")" ;
+                cmd.CommandText = @"insert into `order` (staff_account,actual_payment,total_bill,table_no) 
+                                values('" + account + "',0,0," + table + ")" ;
                 if (cmd.ExecuteNonQuery() == 1)
                 {
                     cmd.CommandText = "select order_no,order_time from `order` order by order_time desc";
@@ -126,10 +126,10 @@ namespace RMS
         public DataTable showOrder(string order)
         {
             DataTable dt = new DataTable();
-            string sql = @"select * from order_item inner join menu_item on 
-                        order_item.item_id=menu_item.item_id where order_no=" + order;
+            string sql = @"select * from order_item left join menu_item on 
+                       order_item.item_id=menu_item.item_id where order_no=" + order;
             string sqlbill = @"select format(sum(price*quantity),2) from order_item a 
-                        inner join menu_item b on a.item_id=b.item_id where order_no=" + order;
+                        left join menu_item b on a.item_id=b.item_id where order_no=" + order;
             try
             {   //Show DataGrid
                 DataSet ds = new DataSet();
@@ -155,38 +155,21 @@ namespace RMS
             return dt;
         }
 
-        //public DataTable showNewOrder(string order)
-        //{
-        //    DataTable dt = new DataTable();
-        //    string sql = @"select * from order_item inner join menu_item on 
-        //                order_item.item_id=menu_item.item_id where order_no=" + order;
-        //    try
-        //    {   //Show DataGrid
-        //        DataSet ds = new DataSet();
-        //        MySqlDataAdapter sda = new MySqlDataAdapter(sql, con);
-        //        sda.Fill(ds, "order_item");
-        //        dt = ds.Tables["order_item"];
-        //        //Show Order No
-        //        orderNo = order.PadLeft(6, '0');
-        //        tbkOrder.Text = this.orderNo;
-        //    }
-        //    catch (MySqlException ex)
-        //    { MessageBox.Show(ex.Message); }
-        //    return dt;
-        //}
-
         public void orderItem(string item, string ammount)
         {
             try
             {
                 cmd.Connection = con;
                 if (this.rbtID.IsChecked == true)
-                    cmd.CommandText = @"insert into `order_item` (quantity, item_id, 
-                                    order_no) values(" + ammount + "," + item + "," + orderNo + ")";
+                    cmd.CommandText = @"insert into `order_item` (quantity, item_id, total_price, 
+                                    order_no) values("+ammount+","+item+", " + ammount + 
+                                 "*(select price from menu_item where item_id=" + item + "),'"+currentOrderNo+"')";
                 else
-                    cmd.CommandText = @"insert into `order_item` (quantity, item_id, 
-                                    order_no) values(" + ammount + @", (select item_id 
-                                    from menu_item where item_code = '" + item + "')," + orderNo + ")";
+                    cmd.CommandText = @"insert into `order_item` (quantity, item_id, total_price, 
+                                    order_no) values(" + ammount + @",(select item_id from 
+                                    menu_item where item_code = '" + item + 
+                                    "'), 2*(select price from menu_item where item_code = '"
+                                    + item + "'),'" + currentOrderNo + "')";
                 if (cmd.ExecuteNonQuery() != 1)
                 { MessageBox.Show("Order failed!"); }
             }
@@ -210,19 +193,14 @@ namespace RMS
         public void cancelItem(string keyword)
         {
             cmd.Connection = con;
-            if (this.rbtID.IsChecked == true)
-                cmd.CommandText = "DELETE FROM order_item WHERE item_id=" + keyword + 
-                                " and order_no=" + orderNo;
-            else
-                cmd.CommandText = @"DELETE FROM order_item WHERE item_id=(select item_id from 
-                                menu_item where item_code='"+keyword+"') and order_no=" + orderNo;
+                cmd.CommandText = "DELETE FROM order_item WHERE order_item_id=" + keyword;
             try { if (cmd.ExecuteNonQuery() >= 1) MessageBox.Show("Order has been canceled!"); }
             catch (MySqlException ex) { MessageBox.Show(ex.Message); }
         }
 
         private void btCancel_Click(object sender, RoutedEventArgs e)
         {
-            string keyword = tbKeyword.Text;
+            string keyword = tbKBillNo.Text;
             if (keyword == "") { MessageBox.Show("Please input keyword!"); return; }
             cancelItem(keyword);
             dgOrder.ItemsSource = showOrder(currentOrderNo).DefaultView;
@@ -241,7 +219,7 @@ namespace RMS
             DataTable dt = new DataTable();
             string sql = @"select concat(c.order_no) as order_no,staff_name,bill,actual_payment,format(actual_payment-bill,2) as `change`,
             table_no,order_time from (select * from `order` inner join staff on `order`.staff_account 
-            = staff.account) c left join (select order_no, sum(price * quantity) as bill from 
+            = staff.account) c left join (select order_no, sum(total_price) as bill from 
             order_item a inner join menu_item b on a.item_id = b.item_id group by order_no) d on 
             c.order_no = d.order_no order by c.order_no asc";
             try
@@ -265,7 +243,7 @@ namespace RMS
             DataTable dt = new DataTable();
             string sql = @"select concat(c.order_no) as order_no,staff_name,bill,actual_payment,format(actual_payment-bill,2) as `change`,
             table_no,order_time from (select * from `order` inner join staff on `order`.staff_account 
-            = staff.account) c left join (select order_no, sum(price * quantity) as bill from 
+            = staff.account) c left join (select order_no, sum(total_price) as bill from 
             order_item a inner join menu_item b on a.item_id = b.item_id group by order_no) d 
             on c.order_no = d.order_no where table_no = "+table+" order by c.order_no asc";
             try
@@ -293,7 +271,7 @@ namespace RMS
             string sql = @"select concat(c.order_no) as order_no,staff_name,bill,actual_payment,
             format(actual_payment-bill,2) as `change`,table_no,order_time from (select * from 
             `order` inner join staff on `order`.staff_account = staff.account) c left join 
-            (select order_no, sum(price * quantity) as bill from order_item a inner join menu_item
+            (select order_no, sum(total_price) as bill from order_item a inner join menu_item
             b on a.item_id = b.item_id group by order_no) d on c.order_no = d.order_no where 
             date_format(order_time,'%Y-%m-%d')>='" + startDate+ 
             "' and date_format(order_time,'%Y-%m-%d')<='" + endDate+"' order by c.order_no asc";
@@ -336,15 +314,6 @@ namespace RMS
             cmd.CommandText = "UPDATE `order` SET actual_payment='" + pay + "' WHERE order_no='" 
                 + currentOrderNo + "'";
             if(cmd.ExecuteNonQuery() != 1) MessageBox.Show("Failed to pay!");
-            dgBill.ItemsSource = showBill(today, today).DefaultView;
-        }
-
-        private void btResetPay_Click(object sender, RoutedEventArgs e)
-        {
-            cmd.Connection = con;
-            cmd.CommandText = "UPDATE `order` SET actual_payment='0' WHERE order_no='" 
-                + currentOrderNo + "'";
-            if (cmd.ExecuteNonQuery() != 1) MessageBox.Show("Failed to reset!");
             dgBill.ItemsSource = showBill(today, today).DefaultView;
         }
 
