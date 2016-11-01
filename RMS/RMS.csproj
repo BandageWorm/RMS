@@ -149,9 +149,6 @@
     <Resource Include="ico\bg.jpg" />
   </ItemGroup>
   <ItemGroup>
-    <Resource Include="ooopic_1477917389.ico" />
-  </ItemGroup>
-  <ItemGroup>
     <Resource Include="icon.ico" />
   </ItemGroup>
   <ItemGroup>

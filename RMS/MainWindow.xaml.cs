@@ -177,14 +177,12 @@ namespace RMS
             {
                 cmd.Connection = con;
                 if (this.rbtID.IsChecked == true)
-                    cmd.CommandText = @"insert into `order_item` (quantity, category_id, item_id, 
-                                    order_no) values(" + ammount + @", (select category_id from menu_item 
-                                    where item_id = " + item + ")," + item + "," + orderNo + ")";
+                    cmd.CommandText = @"insert into `order_item` (quantity, item_id, 
+                                    order_no) values(" + ammount + "," + item + "," + orderNo + ")";
                 else
-                    cmd.CommandText = @"insert into `order_item` (quantity, category_id, item_id, 
-                                    order_no) values(" + ammount + @", (select category_id from menu_item 
-                                    where item_code = '" + item + @"'), (select item_id from menu_item where 
-                                    item_code = '" + item + "')," + orderNo + ")";
+                    cmd.CommandText = @"insert into `order_item` (quantity, item_id, 
+                                    order_no) values(" + ammount + @", (select item_id 
+                                    from menu_item where item_code = '" + item + "')," + orderNo + ")";
                 if (cmd.ExecuteNonQuery() != 1)
                 { MessageBox.Show("Order failed!"); }
             }
@@ -210,14 +208,11 @@ namespace RMS
             cmd.Connection = con;
             if (this.rbtID.IsChecked == true)
                 cmd.CommandText = "DELETE FROM order_item WHERE item_id=" + keyword + 
-                   " and category_id =(select category_id from menu_item where item_id=" + keyword + 
-                   ") and order_no=" + orderNo;
+                                " and order_no=" + orderNo;
             else
                 cmd.CommandText = @"DELETE FROM order_item WHERE item_id=(select item_id from 
-                                menu_item where item_code='"+keyword+
-                                "') and category_id =(select category_id from menu_item where item_code='"
-                                +keyword+"') and order_no=" + orderNo;
-            try { if (cmd.ExecuteNonQuery() == 1) MessageBox.Show("Order has been canceled!"); }
+                                menu_item where item_code='"+keyword+"') and order_no=" + orderNo;
+            try { if (cmd.ExecuteNonQuery() >= 1) MessageBox.Show("Order has been canceled!"); }
             catch (MySqlException ex) { MessageBox.Show(ex.Message); }
         }
 

@@ -89,8 +89,9 @@ namespace RMS
             string price = tbItemPrice.Text;
             string cid = tbItemCategory.Text;
             string info = tbItemInfo.Text;
-            if(name == null||QC == null ||price == null ||cid == null) { MessageBox.Show("Please input values!"); return; }
+            if(name == null||QC == null ||price == null) { MessageBox.Show("Please input values!"); return; }
             if (info == null) info = "";
+            if (cid == null) cid = "";
             try
             {
                 cmd.Connection = con;

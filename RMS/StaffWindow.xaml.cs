@@ -66,7 +66,7 @@ namespace RMS
             string manager = tbManager.Text;
             string name = tbName.Text;
             string age = tbAge.Text;
-            if (account == null|| password == null|| role == null || contact == null || name == null || age == null)
+            if (account == null|| password == null || contact == null || name == null || age == null)
             { MessageBox.Show("Please input value!"); return; }
             try
             {
