@@ -23,8 +23,8 @@ namespace RMS
         public DataTable showItem()
         {
             DataTable dt = new DataTable();
-            string sql = @"select * from menu_item m inner join menu_category c 
-                        where m.category_id=c.category_id order by item_id asc";
+            string sql = @"select * from menu_item m left join menu_category c 
+                        on m.category_id=c.category_id order by item_id asc";
             try
             {   //Show DataGrid
                 DataSet ds = new DataSet();

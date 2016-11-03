@@ -67,10 +67,10 @@ namespace RMS
             DataTable dt = new DataTable();
             string sql;
             if (this.rbtQC.IsChecked == true)
-                sql = @"select * from menu_item a inner join menu_category b 
+                sql = @"select * from menu_item a left join menu_category b 
                     on a.category_id=b.category_id where item_code='" + keyword + "'";
             else
-                sql = @"select * from menu_item a inner join menu_category b 
+                sql = @"select * from menu_item a left join menu_category b 
                     on a.category_id=b.category_id where item_id='" + keyword +"'";
             try
             {
