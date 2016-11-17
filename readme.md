@@ -10,5 +10,5 @@ Need to connect local MySQL server
 Attention: 
 Button "Bills" will show today's bills (as default) if the "Table NO" left blank.
 
-Test Manager account:account = M00001,password = 123
+Test Manager account:account = qwe,password = 123
 
