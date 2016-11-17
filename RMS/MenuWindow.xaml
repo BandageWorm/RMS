@@ -5,7 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:RMS"
         mc:Ignorable="d"
-        Title="MenuWindow" Height="600" Width="800" ResizeMode="CanMinimize" WindowStartupLocation="CenterScreen">
+        Title="MenuWindow" Height="600" Width="1000" ResizeMode="CanMinimize" WindowStartupLocation="CenterScreen">
     <Grid>
         <Grid.RowDefinitions>
             <RowDefinition Height="2*"/>
@@ -14,6 +14,7 @@
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="500"/>
             <ColumnDefinition Width="300"/>
+            <ColumnDefinition Width="200"/>
         </Grid.ColumnDefinitions>
         <DataGrid x:Name="dgItem" Margin="20,30,10,0" AutoGenerateColumns="False">
             <DataGrid.Columns>
@@ -25,7 +26,7 @@
                 <DataGridTextColumn Width="160" Header="Info" Binding="{Binding item_info}"/>
             </DataGrid.Columns>
         </DataGrid>
-        <DataGrid x:Name="dgCategory" Margin="10,30,30,0" AutoGenerateColumns="False" Width="260" Grid.Column="1">
+        <DataGrid x:Name="dgCategory" Margin="10,30,20,0" AutoGenerateColumns="False" Grid.Column="1">
             <DataGrid.Columns>
                 <DataGridTextColumn Width="40" Header="ID" Binding="{Binding category_id}"/>
                 <DataGridTextColumn Width="80" Header="Category" Binding="{Binding category}"/>
@@ -55,7 +56,7 @@
                 </Style>
             </TextBox.Style>
         </TextBox>
-        <TextBox x:Name="tbCategoryID" Height="25" Margin="100,10,100,145" Grid.Row="1" TextWrapping="Wrap" Width="100" Grid.Column="1">
+        <TextBox x:Name="tbCategoryID" Height="25" Margin="100,10,79.4,145" Grid.Row="1" TextWrapping="Wrap" Width="100" Grid.Column="1">
             <TextBox.Resources>
                 <VisualBrush x:Key="HelpBrush" TileMode="None" Opacity="0.3" Stretch="None" AlignmentX="Left">
                     <VisualBrush.Visual>
@@ -77,20 +78,20 @@
             </TextBox.Style>
         </TextBox>
         <Button x:Name="btDeleteItem" Content="Delete" Margin="430,10,10,145" Grid.Row="1" Width="60" BorderThickness="2" FontFamily="Rockwell" Height="25" Click="btDeleteItem_Click"/>
-        <Button x:Name="btDeleteCategory" Content="Delete" Margin="210,10,30,145" Grid.Row="1" Width="60" BorderThickness="2" FontFamily="Rockwell" Height="25" Grid.Column="1" Click="btDeleteCategory_Click"/>
-        <TabControl x:Name="tabControl" Margin="20,10,30,30" Grid.Row="1" Grid.ColumnSpan="2" Panel.ZIndex="-1">
+        <Button x:Name="btDeleteCategory" Content="Delete" Margin="210,10,9.4,145" Grid.Row="1" Width="60" BorderThickness="2" FontFamily="Rockwell" Height="25" Grid.Column="1" Click="btDeleteCategory_Click"/>
+        <TabControl x:Name="tabControl" Margin="20,10,30,30" Grid.Row="1" Grid.ColumnSpan="3" Panel.ZIndex="-1">
             <TabItem Header="Item" Height="30" Margin="-2,0,-1.6,0.4">
                 <Grid>
                     <TextBlock x:Name="tbkItem_Copy" HorizontalAlignment="Left" Margin="20,20,0,0" TextWrapping="Wrap" Text="NAME" FontSize="17" VerticalAlignment="Top" Height="20" FontFamily="Bodoni MT"/>
                     <TextBlock x:Name="tbkItem_Copy1" HorizontalAlignment="Left" Margin="265,20,0,0" TextWrapping="Wrap" Text="QC" FontSize="17" VerticalAlignment="Top" Height="20" FontFamily="Bodoni MT"/>
-                    <TextBlock x:Name="tbkItem_Copy2" HorizontalAlignment="Left" Margin="375,20,0,0" TextWrapping="Wrap" Text="PRICE" FontSize="17" VerticalAlignment="Top" Height="20" FontFamily="Bodoni MT"/>
-                    <TextBlock x:Name="tbkItem_Copy3" HorizontalAlignment="Left" Margin="510,20,0,0" TextWrapping="Wrap" Text="CATEGORY ID" FontSize="17" VerticalAlignment="Top" Height="20" FontFamily="Bodoni MT"/>
+                    <TextBlock x:Name="tbkItem_Copy2" HorizontalAlignment="Left" Margin="401,20,0,0" TextWrapping="Wrap" Text="PRICE" FontSize="17" VerticalAlignment="Top" Height="20" FontFamily="Bodoni MT"/>
+                    <TextBlock x:Name="tbkItem_Copy3" HorizontalAlignment="Left" Margin="571,20,0,0" TextWrapping="Wrap" Text="CATEGORY ID" FontSize="17" VerticalAlignment="Top" Height="20" FontFamily="Bodoni MT"/>
                     <TextBox x:Name="tbItemName" Height="20" Margin="80,20,0,0" TextWrapping="Wrap" VerticalAlignment="Top" HorizontalAlignment="Left" Width="150" />
                     <TextBox x:Name="tbItemQC" Height="20" Margin="295,20,0,0" TextWrapping="Wrap" VerticalAlignment="Top" HorizontalAlignment="Left" Width="50" />
-                    <TextBox x:Name="tbItemCategory" Height="20" Margin="635,20,0,0" TextWrapping="Wrap" VerticalAlignment="Top" HorizontalAlignment="Left" Width="80" />
-                    <TextBox x:Name="tbItemPrice" Height="20" Margin="435,20,0,0" TextWrapping="Wrap" VerticalAlignment="Top" HorizontalAlignment="Left" Width="50" />
+                    <TextBox x:Name="tbItemCategory" Height="20" Margin="700,20,0,0" TextWrapping="Wrap" VerticalAlignment="Top" HorizontalAlignment="Left" Width="80" />
+                    <TextBox x:Name="tbItemPrice" Height="20" Margin="461,20,0,0" TextWrapping="Wrap" VerticalAlignment="Top" HorizontalAlignment="Left" Width="50" />
                     <TextBlock x:Name="tbkItem_Copy4" HorizontalAlignment="Left" Margin="20,60,0,0" TextWrapping="Wrap" Text="INFO" FontSize="17" VerticalAlignment="Top" Height="20" FontFamily="Bodoni MT"/>
-                    <TextBox x:Name="tbItemInfo" Height="20" Margin="80,60,0,0" TextWrapping="Wrap" VerticalAlignment="Top" HorizontalAlignment="Left" Width="550" />
+                    <TextBox x:Name="tbItemInfo" Height="20" Margin="80,60,0,0" TextWrapping="Wrap" VerticalAlignment="Top" HorizontalAlignment="Left" Width="700" />
                     <Button x:Name="btAddItem" Content="Add" HorizontalAlignment="Right" Margin="0,60,30,0" VerticalAlignment="Top" Width="60" BorderThickness="2" FontFamily="Rockwell" Height="20" Click="btAddItem_Click"/>
                 </Grid>
             </TabItem>
@@ -99,10 +100,46 @@
                     <TextBlock x:Name="tbkItem_Copy5" HorizontalAlignment="Left" Margin="20,20,0,0" TextWrapping="Wrap" Text="CATEGORY" FontSize="17" VerticalAlignment="Top" Height="20" FontFamily="Bodoni MT"/>
                     <TextBlock x:Name="tbkItem_Copy6" HorizontalAlignment="Left" Margin="20,60,0,0" TextWrapping="Wrap" Text="CATEGORY INFO" FontSize="17" VerticalAlignment="Top" Height="20" FontFamily="Bodoni MT"/>
                     <Button x:Name="btAddCategory" Content="Add" HorizontalAlignment="Right" Margin="0,60,50,0" VerticalAlignment="Top" Width="60" BorderThickness="2" FontFamily="Rockwell" Height="20" Click="btAddCategory_Click"/>
-                    <TextBox x:Name="tbCategoryInfo" Height="20" Margin="180,60,0,0" TextWrapping="Wrap" VerticalAlignment="Top" HorizontalAlignment="Left" Width="430" />
-                    <TextBox x:Name="tbCategory" Height="20" Margin="180,20,0,0" TextWrapping="Wrap" VerticalAlignment="Top" HorizontalAlignment="Left" Width="180" />
+                    <TextBox x:Name="tbCategoryInfo" Height="20" Margin="180,60,0,0" TextWrapping="Wrap" VerticalAlignment="Top" HorizontalAlignment="Left" Width="600" />
+                    <TextBox x:Name="tbCategory" Height="20" Margin="180,20,0,0" TextWrapping="Wrap" VerticalAlignment="Top" HorizontalAlignment="Left" Width="301" />
+                </Grid>
+            </TabItem>
+            <TabItem Header="Table">
+                <Grid>
+                    <TextBlock x:Name="tbkItem_Copy9" HorizontalAlignment="Left" Margin="18,20,0,0" TextWrapping="Wrap" Text="TABLE INFO" FontSize="17" VerticalAlignment="Top" Height="20" FontFamily="Bodoni MT"/>
+                    <Button x:Name="btAddTable" Content="Add" HorizontalAlignment="Right" Margin="0,60,50,0" VerticalAlignment="Top" Width="60" BorderThickness="2" FontFamily="Rockwell" Height="20" Click="btAddTable_Click"/>
+                    <TextBox x:Name="tbTableInfo" Height="20" Margin="150,20,0,0" TextWrapping="Wrap" VerticalAlignment="Top" HorizontalAlignment="Left" Width="606" />
                 </Grid>
             </TabItem>
         </TabControl>
+        <DataGrid x:Name="dgTable" Margin="0,30,30,0" AutoGenerateColumns="False" Grid.Column="2">
+            <DataGrid.Columns>
+                <DataGridTextColumn Width="50" Header="Table" Binding="{Binding table_no}"/>
+                <DataGridTextColumn Width="130" Header="Info" Binding="{Binding table_info}"/>
+            </DataGrid.Columns>
+        </DataGrid>
+        <TextBlock x:Name="tbkTable" HorizontalAlignment="Left" Margin="0,5,0,0" TextWrapping="Wrap" Text="TABLE" FontSize="17" VerticalAlignment="Top" Height="20" FontFamily="Bodoni MT" Grid.Column="2"/>
+        <TextBox x:Name="tbTableNo" Height="25" Margin="30,10,100,145" Grid.Row="1" TextWrapping="Wrap" Grid.Column="2">
+            <TextBox.Resources>
+                <VisualBrush x:Key="HelpBrush" TileMode="None" Opacity="0.3" Stretch="None" AlignmentX="Left">
+                    <VisualBrush.Visual>
+                        <TextBlock FontStyle="Italic" Text="Table No"/>
+                    </VisualBrush.Visual>
+                </VisualBrush>
+            </TextBox.Resources>
+            <TextBox.Style>
+                <Style TargetType="{x:Type TextBox}">
+                    <Style.Triggers>
+                        <Trigger Property="Text" Value="{x:Null}">
+                            <Setter Property="Background" Value="{StaticResource HelpBrush}"/>
+                        </Trigger>
+                        <Trigger Property="Text" Value="">
+                            <Setter Property="Background" Value="{StaticResource HelpBrush}"/>
+                        </Trigger>
+                    </Style.Triggers>
+                </Style>
+            </TextBox.Style>
+        </TextBox>
+        <Button x:Name="btDeleteTable" Content="Delete" Margin="110,10,30,145" Grid.Row="1" Width="60" BorderThickness="2" FontFamily="Rockwell" Height="25" Grid.Column="2" Click="btDeleteTable_Click"/>
     </Grid>
 </Window>

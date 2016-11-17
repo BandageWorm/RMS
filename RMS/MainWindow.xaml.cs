@@ -168,7 +168,7 @@ namespace RMS
                     cmd.CommandText = @"insert into `order_item` (quantity, item_id, total_price, 
                                     order_no) values(" + ammount + @",(select item_id from 
                                     menu_item where item_code = '" + item + 
-                                    "'), 2*(select price from menu_item where item_code = '"
+                                    "'), "+ ammount + "*(select price from menu_item where item_code = '"
                                     + item + "'),'" + currentOrderNo + "')";
                 if (cmd.ExecuteNonQuery() != 1)
                 { MessageBox.Show("Order failed!"); }

@@ -18,6 +18,7 @@ namespace RMS
             InitializeComponent();
             dgItem.ItemsSource = showItem().DefaultView;
             dgCategory.ItemsSource = showCategory().DefaultView;
+            dgTable.ItemsSource = showTable().DefaultView;
         }
 
         public DataTable showItem()
@@ -47,6 +48,22 @@ namespace RMS
                 MySqlDataAdapter sda = new MySqlDataAdapter(sql, con);
                 sda.Fill(ds, "showCategory");
                 dt = ds.Tables["showCategory"];
+            }
+            catch (MySqlException ex)
+            { MessageBox.Show(ex.Message); }
+            return dt;
+        }
+
+        public DataTable showTable()
+        {
+            DataTable dt = new DataTable();
+            string sql = "SELECT * FROM `table`";
+            try
+            {   //Show DataGrid
+                DataSet ds = new DataSet();
+                MySqlDataAdapter sda = new MySqlDataAdapter(sql, con);
+                sda.Fill(ds, "showTable");
+                dt = ds.Tables["showTable"];
             }
             catch (MySqlException ex)
             { MessageBox.Show(ex.Message); }
@@ -117,6 +134,35 @@ namespace RMS
             }
             catch (MySqlException ex) { MessageBox.Show(ex.Message); }
             dgCategory.ItemsSource = showCategory().DefaultView;
+        }
+
+        private void btDeleteTable_Click(object sender, RoutedEventArgs e)
+        {
+            string tableNo = this.tbTableNo.Text;
+            if(tableNo==null||tableNo=="") { MessageBox.Show("Please input table No!"); return; }
+            try
+            {
+                cmd.Connection = con;
+                cmd.CommandText = "DELETE FROM `table` WHERE table_no =" + tableNo;
+                if (cmd.ExecuteNonQuery() != 1) MessageBox.Show("Failed!");
+            }
+            catch (MySqlException ex) { MessageBox.Show(ex.Message); }
+            dgTable.ItemsSource = showTable().DefaultView;
+
+        }
+
+        private void btAddTable_Click(object sender, RoutedEventArgs e)
+        {
+            string info = tbTableInfo.Text;
+            if (info == null) info = "";
+            try
+            {
+                cmd.Connection = con;
+                cmd.CommandText = "INSERT INTO `table` (`table_info`) VALUES ('" + info + "')";
+                if (cmd.ExecuteNonQuery() != 1) MessageBox.Show("Failed!");
+            }
+            catch (MySqlException ex) { MessageBox.Show(ex.Message); }
+            dgTable.ItemsSource = showTable().DefaultView;
         }
     }
 }

@@ -51,7 +51,7 @@ namespace RMS
             if (info == null || No == null) { MessageBox.Show("Please input info or item No.!"); return; }
             string sql;
             if (this.rbtMenu.IsChecked == true)
-                sql = "UPDATE menu_item i inner join menu_category c on i.category_id=c.category_id SET item_info='"+info+"' WHERE item_id=" + No;
+                sql = "UPDATE menu_item SET item_info='"+info+"' WHERE item_id=" + No;
             else if (this.rbtCategory.IsChecked == true)
                 sql = "UPDATE menu_category SET category_info='"+info+"' WHERE category_id=" + No;
             else
