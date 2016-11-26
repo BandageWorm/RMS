@@ -12,6 +12,7 @@ Need to connect local MySQL server:
 Please import the demo.sql to MySQL database.
 
 * Attention: 
+
 >Button `Bills` will show today's bills (as default) if the "Table NO" left blank.
 >Test Manager account: account = `qwe`,password = `123`
 
